@@ -29,6 +29,7 @@
   display: flex;
   flex: 1 75%;
   flex-direction: row;
+  padding: 10px;
 }
 
 ul {

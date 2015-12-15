@@ -6,6 +6,7 @@ $(document).ready(function() {
     betAmount = 1,
     credits = 100,
     hitCount = 0;
+    mouseDown = false;
 
   function Square(index) {
     this.index = index;
@@ -107,7 +108,6 @@ $(document).ready(function() {
   function startRound() {
     var randomNumbers = generateNumbers();
     var count = 0;
-
     function callback() {
       board[randomNumbers[count]].highlight();
       if (count === randomNumbers.length - 1) {
@@ -151,8 +151,18 @@ $(document).ready(function() {
   init();
 
   // Button Events
-  $('li button').on("click", function() {
-    board[$(this).attr("btn-id")].select();
+  $('li button').on({
+    mousedown: function() {
+      board[$(this).attr("btn-id")].select();
+      mouseDown = true;
+    },
+    mouseup: function() {
+      mouseDown = false;
+    },
+    mouseover: function() {
+      if (mouseDown)
+        board[$(this).attr("btn-id")].select();
+    }
   });
 
   $('#start').on("click", startRound);
