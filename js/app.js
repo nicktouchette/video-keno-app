@@ -60,6 +60,7 @@ $(document).ready(function() {
         selectedCount++;
         $(this.element).css("border-color", "yellow");
       }
+      refreshStats()
     };
 
     this.reset = function() {
