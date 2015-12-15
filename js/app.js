@@ -5,8 +5,20 @@ $(document).ready(function() {
     drawSpeed = 100,
     betAmount = 1,
     credits = 100,
-    hitCount = 0;
-    mouseDown = false;
+    hitCount = 0,
+    mouseDown = false,
+    currentWinAmount = 0;
+    idleState = true;
+
+  var payouts = {
+    4: [2,5,15],
+    5: [1,3,12,50],
+    6: [3,4,18,50],
+    7: [3,15,40,75],
+    8: [7,18,75,500],
+    9: [4,12,35,60,750],
+    10: [4,11,33,50,500,900]
+  };
 
   function Square(index) {
     this.index = index;
@@ -106,22 +118,27 @@ $(document).ready(function() {
   }
 
   function startRound() {
-    var randomNumbers = generateNumbers();
-    var count = 0;
-    function callback() {
-      board[randomNumbers[count]].highlight();
-      if (count === randomNumbers.length - 1) {
-        calculatePayout();
-      } else {
-        count++;
-        setTimeout(callback, drawSpeed)
+    if (selectedCount >= 4) {
+      var randomNumbers = generateNumbers();
+      var count = 0;
+      curentWinAmount = 0;
+
+      idleState = false;
+      function callback() {
+        board[randomNumbers[count]].highlight();
+        if (count === randomNumbers.length - 1) {
+          calculatePayout();
+        } else {
+          count++;
+          setTimeout(callback, drawSpeed)
+        }
       }
-    }
+      resetBoard();
 
-    resetBoard();
-
-    if (bet()) {
-      setTimeout(callback, drawSpeed);
+      if (bet()) {
+        setTimeout(callback, drawSpeed);
+      }
+      idleState = true;
     }
   }
 
@@ -135,17 +152,42 @@ $(document).ready(function() {
   }
 
   function refreshStats() {
+    populatePayoutTable();
     changeStat("totalMarked", selectedCount);
     changeStat("coins-hit", 0);
     changeStat("multiplier", 0);
     changeStat("currentBet", betAmount);
-    changeStat("currentWinAmount", 0);
+    changeStat("currentWinAmount", currentWinAmount);
     changeStat("creditTotal", credits);
     changeStat("totalHits", hitCount);
   }
 
-  function calculatePayout() {
+  function populatePayoutTable() {
+    clearRows();
+    var payoutTable = payouts[(selectedCount < 4?4:selectedCount)];
+    var lowestHitGoal = (selectedCount < 4?4:selectedCount) - payoutTable.length + 1;
 
+    for (var i = 0; i < payoutTable.length; i++) {
+      createRow(lowestHitGoal + i, payoutTable[i]);
+    }
+    function clearRows(){
+      $('tr').remove("[hitGoal]");
+    }
+    function createRow(hitGoal, payoutPays){
+      $('.payouts > table').append(`<tr hitGoal=${hitGoal}></tr>`);
+      $(`tr[hitGoal="${hitGoal}"]`).append(`<td>${hitGoal}</td><td>${payoutPays * betAmount}</td><td>payoutMulti</td>`);
+    }
+  }
+
+  function calculatePayout() {
+    var payoutTable = payouts[selectedCount];
+    var lowestHitGoal = selectedCount - payoutTable.length + 1;
+
+    if (hitCount >= lowestHitGoal) {
+      currentWinAmount = payoutTable[hitCount - lowestHitGoal] * betAmount;
+      credits += currentWinAmount;
+      refreshStats();
+    }
   }
 
   init();
@@ -156,39 +198,48 @@ $(document).ready(function() {
       board[$(this).attr("btn-id")].select();
       mouseDown = true;
     },
-    mouseup: function() {
-      mouseDown = false;
-    },
     mouseover: function() {
       if (mouseDown)
         board[$(this).attr("btn-id")].select();
     }
   });
 
-  $('#start').on("click", startRound);
+  $('.board').on("mouseup", function() {
+      mouseDown = false;
+  });
+
+  $('#start').on("click", function() {
+    if (idleState) {
+      startRound();
+    }
+  });
 
   $('#speed').on("click", function() {
     drawSpeed = (drawSpeed === 400) ? 300 : (drawSpeed === 300) ? 200 : (drawSpeed === 200) ? 100 : 400;
   });
 
   $('#betMax').on("click", function() {
-    betAmount = 40;
+    if (idleState) {
+      betAmount = 40;
+    }
   });
 
   $('#betUp').on("click", function() {
-    if (betAmount < 40) {
+    if (idleState && betAmount < 40) {
       betAmount++;
     }
   });
 
   $('#betDown').on("click", function() {
-    if (betAmount > 1) {
+    if (idleState && betAmount > 1) {
       betAmount--;
     }
   });
 
   $('#erase').on("click", function() {
-    eraseSelection();
+    if (idleState) {
+      eraseSelection();
+    }
   });
 
   $('button, input[type=button]').on("click", refreshStats);
