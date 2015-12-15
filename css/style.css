@@ -93,12 +93,12 @@ ul {
 }
 
 .header {
-  flex: 1 auto;
+  flex: 1.5 auto;
   border: 2px solid;
 }
 
 .payouts {
-  flex: 1.5 auto;
+  flex: 0 300px;
   border: 2px solid;
 }
 

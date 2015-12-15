@@ -1,23 +1,24 @@
 $(document).ready(function() {
 
   var board = [],
-    selectedCount = 0,
-    drawSpeed = 100,
-    betAmount = 1,
-    credits = 100,
-    hitCount = 0,
-    mouseDown = false,
-    currentWinAmount = 0;
-    idleState = true;
+      selectedCount = 0,
+      drawSpeed = 100,
+      betAmount = 1,
+      credits = 12,
+      hitCount = 0,
+      mouseDown = false,
+      currentWinAmount = 0,
+      idleState = true;
+      maxBet = 8;
 
   var payouts = {
-    4: [2,5,15],
-    5: [1,3,12,50],
-    6: [3,4,18,50],
-    7: [3,15,40,75],
-    8: [7,18,75,500],
-    9: [4,12,35,60,750],
-    10: [4,11,33,50,500,900]
+    4: [1,8,84],
+    5: [3,20,500],
+    6: [2,7,70,1000],
+    7: [1,4,30,150,2000],
+    8: [1,12,100,1500,8000],
+    9: [1,3,50,300,4000,9000],
+    10: [3,25,130,1000,5000,10000]
   };
 
   function Square(index) {
@@ -120,26 +121,27 @@ $(document).ready(function() {
 
   function startRound() {
     if (selectedCount >= 4) {
-      var randomNumbers = generateNumbers();
-      var count = 0;
-      curentWinAmount = 0;
+      if (bet()) {
+        idleState = false;
 
-      idleState = false;
+        var randomNumbers = generateNumbers();
+        var count = 0;
+        currentWinAmount = 0;
+
+        resetBoard();
+        setTimeout(callback, drawSpeed);
+      }
+
       function callback() {
         board[randomNumbers[count]].highlight();
         if (count === randomNumbers.length - 1) {
           calculatePayout();
+          idleState = true;
         } else {
           count++;
           setTimeout(callback, drawSpeed)
         }
       }
-      resetBoard();
-
-      if (bet()) {
-        setTimeout(callback, drawSpeed);
-      }
-      idleState = true;
     }
   }
 
@@ -221,12 +223,12 @@ $(document).ready(function() {
 
   $('#betMax').on("click", function() {
     if (idleState) {
-      betAmount = 40;
+      betAmount = maxBet;
     }
   });
 
   $('#betUp').on("click", function() {
-    if (idleState && betAmount < 40) {
+    if (idleState && betAmount < maxBet) {
       betAmount++;
     }
   });
