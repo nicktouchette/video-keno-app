@@ -1,25 +1,42 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
-  var board = [];
-  var selectedCount = 0;
+  var board = [],
+    selectedCount = 0,
+    drawSpeed = 100,
+    betAmount = 1,
+    credits = 100,
+    hitCount = 0;
 
   function Square(index) {
     this.index = index;
     this.isSelected = false;
     this.element = `.board ul li:nth-child(${this.index + 1}) button`;
+    this.isHit = false;
 
     // create button in DOM using jquery
     $(".board ul").append(`<li><button btn-id="${this.index}">${this.index + 1}</button></li>`);
 
-    this.draw = function() {
-      $(this.element).css("color","rgb(255,255,255)");
+    // highlight a square and detect if square is selected
+    this.highlight = function() {
+      $(this.element).css("color", "rgb(255,255,255)");
+      var boop = document.getElementById("boop").cloneNode(true);
+      boop.volume = .3;
       if (this.isSelected) {
         this.hit();
+        boop.volume = 1;
       }
+      boop.play();
     };
+
+    // mark a square as hit if selected is true
+    // increment hits variable and enable hit flag
     this.hit = function() {
       $(this.element).text("HIT");
+      this.isHit = true;
+      hitCount++;
+      refreshStats();
     };
+
     this.select = function() {
       if (this.isSelected) {
         this.isSelected = false;
@@ -31,23 +48,34 @@ $(document).ready(function () {
         $(this.element).css("border-color", "yellow");
       }
     };
-    this.refresh = function() {
-      $(this.element).css("color","initial");
-      $(this.element).text(this.index+1);
+
+    this.reset = function() {
+      if (this.isHit === true) {
+        hitCount--;
+        this.isHit = false;
+      }
+      $(this.element).css("color", "initial");
+      $(this.element).text(this.index + 1);
     };
   }
 
+  function changeStat(name, value) {
+    $(`#${name}`).text(value);
+  }
+
   // Create button objects and display board
-  function init () {
-    for (var i = 0; i < 80; i ++) {
+  function init() {
+    for (var i = 0; i < 80; i++) {
       // create Square object with values 1 to 80 and push to board
       board.push(new Square(i));
     }
+    refreshStats();
   }
 
   // Randomly generate 20 unique numbers and return the array
   function generateNumbers() {
-    var randomNumberArray = [], availableNumbers = [];
+    var randomNumberArray = [],
+      availableNumbers = [];
 
     for (var i = 1; i <= 80; i++) {
       availableNumbers.push(i);
@@ -60,26 +88,60 @@ $(document).ready(function () {
     return randomNumberArray;
   }
 
-  function clearBoard() {
+  function resetBoard() {
     board.forEach(function(square) {
-      square.refresh();
+      square.reset();
     });
   }
 
+  function eraseSelection() {
+    board.forEach(function(square) {
+      square.reset();
+      if (square.isSelected) {
+        square.select();
+      }
+    });
+    refreshStats();
+  }
+
   function startRound() {
-    clearBoard();
     var randomNumbers = generateNumbers();
     var count = 0;
 
-    var display = setInterval(function() {
-      board[randomNumbers[count]].draw();
+    function callback() {
+      board[randomNumbers[count]].highlight();
       if (count === randomNumbers.length - 1) {
-        clearInterval(display);
         calculatePayout();
       } else {
         count++;
+        setTimeout(callback, drawSpeed)
       }
-    }, 500);
+    }
+
+    resetBoard();
+
+    if (bet()) {
+      setTimeout(callback, drawSpeed);
+    }
+  }
+
+  function bet() {
+    if (credits >= betAmount) {
+      credits -= betAmount;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function refreshStats() {
+    changeStat("totalMarked", selectedCount);
+    changeStat("coins-hit", 0);
+    changeStat("multiplier", 0);
+    changeStat("currentBet", betAmount);
+    changeStat("currentWinAmount", 0);
+    changeStat("creditTotal", credits);
+    changeStat("totalHits", hitCount);
   }
 
   function calculatePayout() {
@@ -88,10 +150,36 @@ $(document).ready(function () {
 
   init();
 
-  $('li button').on("click", function(){
+  // Button Events
+  $('li button').on("click", function() {
     board[$(this).attr("btn-id")].select();
   });
 
   $('#start').on("click", startRound);
 
+  $('#speed').on("click", function() {
+    drawSpeed = (drawSpeed === 400) ? 300 : (drawSpeed === 300) ? 200 : (drawSpeed === 200) ? 100 : 400;
+  });
+
+  $('#betMax').on("click", function() {
+    betAmount = 40;
+  });
+
+  $('#betUp').on("click", function() {
+    if (betAmount < 40) {
+      betAmount++;
+    }
+  });
+
+  $('#betDown').on("click", function() {
+    if (betAmount > 1) {
+      betAmount--;
+    }
+  });
+
+  $('#erase').on("click", function() {
+    eraseSelection();
+  });
+
+  $('button, input[type=button]').on("click", refreshStats);
 });

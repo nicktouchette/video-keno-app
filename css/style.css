@@ -8,25 +8,26 @@
   margin: auto;
   background-color: lightblue;
   max-width: 1000px;
+  height: 92vh;
 }
 
 .gamecontainer {
   display: flex;
   text-align: center;
   flex: 1 auto;
-  height: 93vh;
+  height: 100%;
 }
 
 /*Includes .board .statustop .statusbottom*/
 .main {
   display: flex;
+  flex: 1 50%;
   flex-direction: column;
-  flex: 1 400px;
 }
 
 .board {
   display: flex;
-  flex: 25 auto;
+  flex: 1 75%;
   flex-direction: row;
 }
 
@@ -34,57 +35,53 @@ ul {
   display: flex;
   list-style: none;
   flex-flow: row wrap;
-  width: 100%;
 }
 
+.board > ul {
+   align-content: stretch;
+}
 .board > ul > li {
-  display: inline-block;
-  width: 10%;
+  flex: 1 10%;
 }
 
 .board > ul > li > button {
-  display: block;
   outline: 0;
-
-    /* Rectangle 8: */
   background-image: radial-gradient(50% 100%, rgba(255,255,255,0.50) 20%, rgba(0,0,0,0.49) 100%),
                     linear-gradient(220deg, #000000 10%, #ffffff 100%);
 
   border: 2px solid #000000;
   border-radius: 100px;
-  /* 1: */
+
   font-family: ArialMT;
   font-size: 30px;
   color: #000000;
-  line-height: 60px;
-  width: 65px;
+  width: 100%;
   height: 65px;
 }
 
 .statustop {
-  flex: 1 50px;
-
+  flex: 1 content;
   border: 2px solid;
   margin-bottom: 2px;
+  /*height: 50px;*/
 }
 
 .statustop > ul {
   justify-content: space-around;
-    height: 50px;
-    align-items: center;
-}
-
-.statustop > ul > li {
+  height: 100%;
+  align-items: center;
 }
 
 .statusbottom {
-  flex: 1 50px;
+  flex: 1 content;
   border: 2px solid;
   margin-top: 2px;
 }
 
 .statusbottom > ul {
   justify-content: space-around;
+  height: 100%;
+  align-items: center;
 }
 
 /*Includes .header and .payouts*/
@@ -115,6 +112,13 @@ ul {
 }
 
 .bottom > ul {
+  width: 100%;
   align-content: center;
   justify-content: space-around;
+  height: 100%;
+  align-items: center;
+}
+
+table {
+  width: 100%;
 }

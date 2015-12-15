@@ -7,6 +7,7 @@
   <script src="js/jquery-2.1.4.min.js"></script>
 </head>
 <body>
+  <audio src="sounds/boop.wav" id="boop" preload></audio>
   <div class="wrapper">
     <div class="gamecontainer">
       <main class="main">
@@ -19,18 +20,18 @@
         <div class="statustop">
           <!-- unsorted list with 4 items -->
           <ul>
-            <li>Marked</li>
-            <li>Coins Hit</li>
-            <li>Multiplier</li>
-            <li>Hit</li>
+            <li>Marked <span id="totalMarked"></span></li>
+            <li>Coins Hit <span id="coins-hit"></span></li>
+            <li>Multiplier <span id="multiplier"></span></li>
+            <li>Hit <span id="totalHits"></span></li>
           </ul>
         </div>
         <div class="statusbottom">
           <!-- unsorted list with 3 list items -->
           <ul>
-            <li>Bet</li>
-            <li>Win</li>
-            <li>Credits</li>
+            <li>Bet <span id="currentBet"></span></li>
+            <li>Win <span id="currentWinAmount"></span></li>
+            <li>Credits <span id="creditTotal"></span></li>
           </ul>
         </div>
       </main>
@@ -56,13 +57,13 @@
       </aside>
     </div>
     <div class="bottom">
-      <!-- unsorted list with 6 list items w/ img + anchor -->
+      <!-- unsorted list with 6 list items w/ img -->
       <ul>
-        <li>Speed</li>
-        <li>Bet Max</li>
-        <li>Bet Down</li>
-        <li>Bet Up</li>
-        <li>Erase</li>
+        <li><input type="button" id="speed" value="Speed"/></li>
+        <li><input type="button" id="betMax" value="Bet Max"/></li>
+        <li><input type="button" id="betDown" value="Bet Down"/></li>
+        <li><input type="button" id="betUp" value="Bet Up"/></li>
+        <li><input type="button" id="erase" value="Erase"/></li>
         <li><input type="button" id="start" value="START"/></li>
       </ul>
     </div>
