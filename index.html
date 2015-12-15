@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Keno</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="js/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="gamecontainer">
+      <main class="main">
+        <div class="board">
+          <!-- flexbox with 80 squares -->
+          <ul>
+            <!-- fill with square using javascript -->
+          </ul>
+        </div>
+        <div class="statustop">
+          <!-- unsorted list with 4 items -->
+          <ul>
+            <li>Marked</li>
+            <li>Coins Hit</li>
+            <li>Multiplier</li>
+            <li>Hit</li>
+          </ul>
+        </div>
+        <div class="statusbottom">
+          <!-- unsorted list with 3 list items -->
+          <ul>
+            <li>Bet</li>
+            <li>Win</li>
+            <li>Credits</li>
+          </ul>
+        </div>
+      </main>
+
+      <aside class="sidebar">
+        <div class="header">Header</div>
+          <!-- image that animates based on actions-->
+        <div class="payouts">
+          <!-- table with 7 rows and 3 columns + header column -->
+          <table>
+            <tr>
+              <th>Hits</th>
+              <th>Pays</th>
+              <th>Multiplier</th>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>1</td>
+              <td>...</td>
+            </tr>
+          </table>
+        </div>
+      </aside>
+    </div>
+    <div class="bottom">
+      <!-- unsorted list with 6 list items w/ img + anchor -->
+      <ul>
+        <li>Speed</li>
+        <li>Bet Max</li>
+        <li>Bet Down</li>
+        <li>Bet Up</li>
+        <li>Erase</li>
+        <li><input type="button" id="start" value="START"/></li>
+      </ul>
+    </div>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

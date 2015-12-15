@@ -1,0 +1,120 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+.wrapper {
+  margin: auto;
+  background-color: lightblue;
+  max-width: 1000px;
+}
+
+.gamecontainer {
+  display: flex;
+  text-align: center;
+  flex: 1 auto;
+  height: 93vh;
+}
+
+/*Includes .board .statustop .statusbottom*/
+.main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 400px;
+}
+
+.board {
+  display: flex;
+  flex: 25 auto;
+  flex-direction: row;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+.board > ul > li {
+  display: inline-block;
+  width: 10%;
+}
+
+.board > ul > li > button {
+  display: block;
+  outline: 0;
+
+    /* Rectangle 8: */
+  background-image: radial-gradient(50% 100%, rgba(255,255,255,0.50) 20%, rgba(0,0,0,0.49) 100%),
+                    linear-gradient(220deg, #000000 10%, #ffffff 100%);
+
+  border: 2px solid #000000;
+  border-radius: 100px;
+  /* 1: */
+  font-family: ArialMT;
+  font-size: 30px;
+  color: #000000;
+  line-height: 60px;
+  width: 65px;
+  height: 65px;
+}
+
+.statustop {
+  flex: 1 50px;
+
+  border: 2px solid;
+  margin-bottom: 2px;
+}
+
+.statustop > ul {
+  justify-content: space-around;
+    height: 50px;
+    align-items: center;
+}
+
+.statustop > ul > li {
+}
+
+.statusbottom {
+  flex: 1 50px;
+  border: 2px solid;
+  margin-top: 2px;
+}
+
+.statusbottom > ul {
+  justify-content: space-around;
+}
+
+/*Includes .header and .payouts*/
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  flex: 1 auto;
+}
+
+.header {
+  flex: 1 auto;
+  border: 2px solid;
+}
+
+.payouts {
+  flex: 1.5 auto;
+  border: 2px solid;
+}
+
+/*Includes play buttons*/
+.bottom {
+  display: flex;
+  border: 2px solid;
+  flex-direction: row;
+  flex: 1 100%;
+  height: 45px;
+  margin-top: 4px;
+}
+
+.bottom > ul {
+  align-content: center;
+  justify-content: space-around;
+}
