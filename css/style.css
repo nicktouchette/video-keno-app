@@ -23,6 +23,15 @@ table th {
   background-color: rgba(255,255,255,.2)
 }
 
+div#preloaded-images {
+  position: absolute;
+  overflow: hidden;
+  left: -9999px;
+  top: -9999px;
+  height: 1px;
+  width: 1px;
+}
+
 .rows {
   display: flex;
   margin: auto;
@@ -117,6 +126,7 @@ ul {
 .header {
   flex: 1 auto;
   margin: 10px;
+
   background-image: url("../img/beaver.gif");
   background-size: cover;
   background-repeat: no-repeat;
@@ -143,6 +153,7 @@ ul {
 
 .bottom > ul > li > button {
   outline: 0;
+  font-size: 18px;
   width: 100%;
   height: 100%;
   background-color: #ffffff;

@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   var board = [],
-    drawSpeed = 100,
+    drawSpeed = 200,
     mouseDown = false,
     maxBet = 8,
     idleState = true;
@@ -244,7 +244,7 @@ $(document).ready(function() {
 
     function createRow(hitGoal, payoutPays) {
       $('.payouts > table').append(`<tr hitGoal=${hitGoal}></tr>`);
-      $(`tr[hitGoal="${hitGoal}"]`).append(`<td>${hitGoal}</td><td>${payoutPays * selfRefresh.betAmount}</td><td>payoutMulti</td>`);
+      $(`tr[hitGoal="${hitGoal}"]`).append(`<td>${hitGoal}</td><td>${payoutPays * selfRefresh.betAmount}</td><td>${payoutPays * selfRefresh.multiplier}</td>`);
     }
   }
 
@@ -253,13 +253,17 @@ $(document).ready(function() {
     var lowestHitGoal = selfRefresh.selectedCount - payoutTable.length + 1;
 
     if (selfRefresh.hitCount >= lowestHitGoal) {
-      selfRefresh.currentWinAmount = payoutTable[selfRefresh.hitCount - lowestHitGoal] * selfRefresh.betAmount;
+      $('.header').css("background-image", "url('./img/beaversmoke.gif')");
+      setTimeout(function(a) {
+        $('.header').css("background-image", "url('./img/beaversmokereverse.gif')");
+        setTimeout(function(b) {
+          $('.header').css("background-image", "url('./img/beaver.gif')");
+        }, 2000 );
+      }, 2000 );
+
+      selfRefresh.currentWinAmount = (payoutTable[selfRefresh.hitCount - lowestHitGoal] * selfRefresh.betAmount) * selfRefresh.multiplier;
       selfRefresh.credits += selfRefresh.currentWinAmount;
     }
-  }
-
-  function setRandomMulitplier() {
-    selfRefresh.mulitplier();
   }
 
   // Button Events
@@ -285,7 +289,9 @@ $(document).ready(function() {
   });
 
   $('#speed').on("click", function() {
-    drawSpeed = (drawSpeed === 400) ? 300 : (drawSpeed === 300) ? 200 : (drawSpeed === 200) ? 100 : 400;
+    drawSpeed = (drawSpeed === 400) ? 200 : (drawSpeed === 200) ? 100 : (drawSpeed === 100) ? 50 : (drawSpeed === 50) ? 10 : 400;
+
+    $(this).text(`Speed ${ 400 / drawSpeed }X`);
   });
 
   $('#betMax').on("click", function() {
