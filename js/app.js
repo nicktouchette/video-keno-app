@@ -1,25 +1,90 @@
 $(document).ready(function() {
 
   var board = [],
-      selectedCount = 0,
-      drawSpeed = 100,
-      betAmount = 1,
-      credits = 12,
-      hitCount = 0,
-      mouseDown = false,
-      currentWinAmount = 0,
-      idleState = true;
-      maxBet = 8;
+    drawSpeed = 100,
+    mouseDown = false,
+    maxBet = 8,
+    idleState = true;
+
+  // set of variables will refresh UI when changed
+  var selfRefresh = {
+    sCount: 0,
+    bAmount: 0,
+    cr: 0,
+    hCount: 0,
+    cWinAmount: 0,
+    cHit: 0,
+    multi: 0,
+
+    set selectedCount(x) {
+      this.sCount = x;
+      // populate payout table with new selected amount
+      populatePayoutTable();
+      displayStat("#totalMarked", x);
+    },
+    get selectedCount() {
+      return this.sCount;
+    },
+
+    set betAmount(x) {
+      this.bAmount = x;
+      displayStat("#currentBet", x);
+    },
+    get betAmount() {
+      return this.bAmount;
+    },
+
+    set credits(x) {
+      this.cr = x;
+      displayStat("#creditTotal", x);
+    },
+    get credits() {
+      return this.cr;
+    },
+
+    set hitCount(x) {
+      this.hCount = x;
+      displayStat("#totalHits", x);
+    },
+    get hitCount() {
+      return this.hCount;
+    },
+
+    set currentWinAmount(x) {
+      this.cWinAmount = x;
+      displayStat("#currentWinAmount", x);
+    },
+    get currentWinAmount() {
+      return this.cWinAmount;
+    },
+
+    set coinsHit(x) {
+      this.cHit = x;
+      displayStat("#coinsHit", x);
+    },
+    get coinsHit() {
+      return this.cHit;
+    },
+    set multiplier(x) {
+      this.multi = x;
+      displayStat("#multiplier", x);
+    },
+    get multiplier() {
+      return this.multi;
+    }
+  };
 
   var payouts = {
-    4: [1,8,84],
-    5: [3,20,500],
-    6: [2,7,70,1000],
-    7: [1,4,30,150,2000],
-    8: [1,12,100,1500,8000],
-    9: [1,3,50,300,4000,9000],
-    10: [3,25,130,1000,5000,10000]
+    4: [1, 8, 84],
+    5: [3, 20, 500],
+    6: [2, 7, 70, 1000],
+    7: [1, 4, 30, 150, 2000],
+    8: [1, 12, 100, 1500, 8000],
+    9: [1, 3, 50, 300, 4000, 9000],
+    10: [3, 25, 130, 1000, 5000, 10000]
   };
+
+  init();
 
   function Square(index) {
     this.index = index;
@@ -33,6 +98,7 @@ $(document).ready(function() {
     // highlight a square and detect if square is selected
     this.highlight = function() {
       $(this.element).css("color", "rgb(255,255,255)");
+      // clone audio boop so multiple can be played
       var boop = document.getElementById("boop").cloneNode(true);
       boop.volume = .3;
       if (this.isSelected) {
@@ -42,31 +108,31 @@ $(document).ready(function() {
       boop.play();
     };
 
-    // mark a square as hit if selected is true
+    // mark square as hit if selected is true
     // increment hits variable and enable hit flag
     this.hit = function() {
       $(this.element).text("HIT");
       this.isHit = true;
-      hitCount++;
-      refreshStats();
+      selfRefresh.hitCount++;
     };
 
+    // Select isSelected and iterate selfRefresh.selectedCount, style accordingly
     this.select = function() {
       if (this.isSelected) {
         this.isSelected = false;
-        selectedCount--;
+        selfRefresh.selectedCount--;
         $(this.element).css("border-color", "inherit");
-      } else if (selectedCount < 10) {
+      } else if (selfRefresh.selectedCount < 10) {
         this.isSelected = true;
-        selectedCount++;
+        selfRefresh.selectedCount++;
         $(this.element).css("border-color", "yellow");
       }
-      refreshStats()
     };
 
+    // resets the isHit flag to false, deducts selfRefresh.hitCount, and resets color/text
     this.reset = function() {
       if (this.isHit === true) {
-        hitCount--;
+        selfRefresh.hitCount--;
         this.isHit = false;
       }
       $(this.element).css("color", "initial");
@@ -74,17 +140,21 @@ $(document).ready(function() {
     };
   }
 
-  function changeStat(name, value) {
-    $(`#${name}`).text(value);
-  }
-
   // Create button objects and display board
   function init() {
+    // set default variables
+    selfRefresh.selectedCount = 0;
+    selfRefresh.betAmount = 1;
+    selfRefresh.currentWinAmount = 0;
+    selfRefresh.credits = 80;
+    selfRefresh.hitCount = 0;
+    selfRefresh.coinsHit = 0;
+    selfRefresh.multiplier = 1;
+
     for (var i = 0; i < 80; i++) {
       // create Square object with values 1 to 80 and push to board
       board.push(new Square(i));
     }
-    refreshStats();
   }
 
   // Randomly generate 20 unique numbers and return the array
@@ -116,87 +186,84 @@ $(document).ready(function() {
         square.select();
       }
     });
-    refreshStats();
   }
 
   function startRound() {
-    if (selectedCount >= 4) {
+    if (selfRefresh.selectedCount >= 4) {
       if (bet()) {
         idleState = false;
 
         var randomNumbers = generateNumbers();
         var count = 0;
-        currentWinAmount = 0;
+        selfRefresh.currentWinAmount = 0;
 
         resetBoard();
-        setTimeout(callback, drawSpeed);
+        setTimeout(highlight, drawSpeed);
       }
 
-      function callback() {
+      function highlight() {
         board[randomNumbers[count]].highlight();
         if (count === randomNumbers.length - 1) {
           calculatePayout();
           idleState = true;
         } else {
           count++;
-          setTimeout(callback, drawSpeed)
+          setTimeout(highlight, drawSpeed);
         }
       }
     }
   }
 
+  // test if player has enough money and then subtract bet from credits
   function bet() {
-    if (credits >= betAmount) {
-      credits -= betAmount;
+    if (selfRefresh.credits >= selfRefresh.betAmount) {
+      selfRefresh.credits -= selfRefresh.betAmount;
       return true;
     } else {
       return false;
     }
   }
 
-  function refreshStats() {
-    populatePayoutTable();
-    changeStat("totalMarked", selectedCount);
-    changeStat("coins-hit", 0);
-    changeStat("multiplier", 0);
-    changeStat("currentBet", betAmount);
-    changeStat("currentWinAmount", currentWinAmount);
-    changeStat("creditTotal", credits);
-    changeStat("totalHits", hitCount);
+  // change a stat on the UI
+  function displayStat(name, value) {
+    $(`${name}`).text(value);
   }
 
   function populatePayoutTable() {
     clearRows();
-    var payoutTable = payouts[(selectedCount < 4?4:selectedCount)];
-    var lowestHitGoal = (selectedCount < 4?4:selectedCount) - payoutTable.length + 1;
+    var payoutTable = payouts[(selfRefresh.selectedCount < 4 ? 4 : selfRefresh.selectedCount)];
+    var lowestHitGoal = (selfRefresh.selectedCount < 4 ? 4 : selfRefresh.selectedCount) - payoutTable.length + 1;
 
     for (var i = 0; i < payoutTable.length; i++) {
       createRow(lowestHitGoal + i, payoutTable[i]);
     }
-    function clearRows(){
+
+    function clearRows() {
       $('tr').remove("[hitGoal]");
     }
-    function createRow(hitGoal, payoutPays){
+
+    function createRow(hitGoal, payoutPays) {
       $('.payouts > table').append(`<tr hitGoal=${hitGoal}></tr>`);
-      $(`tr[hitGoal="${hitGoal}"]`).append(`<td>${hitGoal}</td><td>${payoutPays * betAmount}</td><td>payoutMulti</td>`);
+      $(`tr[hitGoal="${hitGoal}"]`).append(`<td>${hitGoal}</td><td>${payoutPays * selfRefresh.betAmount}</td><td>payoutMulti</td>`);
     }
   }
 
   function calculatePayout() {
-    var payoutTable = payouts[selectedCount];
-    var lowestHitGoal = selectedCount - payoutTable.length + 1;
+    var payoutTable = payouts[selfRefresh.selectedCount];
+    var lowestHitGoal = selfRefresh.selectedCount - payoutTable.length + 1;
 
-    if (hitCount >= lowestHitGoal) {
-      currentWinAmount = payoutTable[hitCount - lowestHitGoal] * betAmount;
-      credits += currentWinAmount;
-      refreshStats();
+    if (selfRefresh.hitCount >= lowestHitGoal) {
+      selfRefresh.currentWinAmount = payoutTable[selfRefresh.hitCount - lowestHitGoal] * selfRefresh.betAmount;
+      selfRefresh.credits += selfRefresh.currentWinAmount;
     }
   }
 
-  init();
+  function setRandomMulitplier() {
+    selfRefresh.mulitplier();
+  }
 
   // Button Events
-  $('li button').on({
+  $('.board li button').on({
     mousedown: function() {
       board[$(this).attr("btn-id")].select();
       mouseDown = true;
@@ -208,7 +275,7 @@ $(document).ready(function() {
   });
 
   $('.board').on("mouseup", function() {
-      mouseDown = false;
+    mouseDown = false;
   });
 
   $('#start').on("click", function() {
@@ -223,19 +290,19 @@ $(document).ready(function() {
 
   $('#betMax').on("click", function() {
     if (idleState) {
-      betAmount = maxBet;
+      selfRefresh.betAmount = maxBet;
     }
   });
 
   $('#betUp').on("click", function() {
     if (idleState && betAmount < maxBet) {
-      betAmount++;
+      selfRefresh.betAmount++;
     }
   });
 
   $('#betDown').on("click", function() {
     if (idleState && betAmount > 1) {
-      betAmount--;
+      selfRefresh.betAmount--;
     }
   });
 
@@ -244,6 +311,4 @@ $(document).ready(function() {
       eraseSelection();
     }
   });
-
-  $('button, input[type=button]').on("click", refreshStats);
 });

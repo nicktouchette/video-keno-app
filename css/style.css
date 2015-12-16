@@ -4,30 +4,50 @@
   padding: 0px;
 }
 
-.wrapper {
-  margin: auto;
-  background-color: lightblue;
-  max-width: 1000px;
-  height: 92vh;
+body {
+  font-family: 'Oswald', sans-serif;
+  background-color: #111111;
+  background-image: url('../img/background.png');
 }
 
-.gamecontainer {
+span {
+  color: white;
+  padding: 10px;
+}
+
+table {
+  width: 100%;
+}
+
+table th {
+  background-color: rgba(255,255,255,.2)
+}
+
+.rows {
+  display: flex;
+  margin: auto;
+  margin-top: 5vh;
+  color: #bbbbbb;
+  border: 5px solid #555555;
+  background-color: rgba(0,0,0,.5);
+  max-width: 1000px;
+  flex-flow: row wrap;
+}
+
+.columns {
   display: flex;
   text-align: center;
-  flex: 1 auto;
-  height: 100%;
 }
 
 /*Includes .board .statustop .statusbottom*/
 .main {
   display: flex;
-  flex: 1 50%;
   flex-direction: column;
+  flex: 1 100%;
 }
 
 .board {
   display: flex;
-  flex: 1 75%;
   flex-direction: row;
   padding: 10px;
 }
@@ -39,21 +59,21 @@ ul {
 }
 
 .board > ul {
-   align-content: stretch;
+  align-content: stretch;
 }
+
 .board > ul > li {
   flex: 1 10%;
+  padding: 1px;
 }
 
 .board > ul > li > button {
   outline: 0;
-  background-image: radial-gradient(50% 100%, rgba(255,255,255,0.50) 20%, rgba(0,0,0,0.49) 100%),
+  background-image: radial-gradient(50% 80%, rgba(255,255,255,0.50) 20%, rgba(0,0,0,0.49) 100%),
                     linear-gradient(220deg, #000000 10%, #ffffff 100%);
 
-  border: 2px solid #000000;
+  /*border: 2px solid #000000;*/
   border-radius: 100px;
-
-  font-family: ArialMT;
   font-size: 30px;
   color: #000000;
   width: 100%;
@@ -61,22 +81,20 @@ ul {
 }
 
 .statustop {
-  flex: 1 content;
-  border: 2px solid;
-  margin-bottom: 2px;
-  /*height: 50px;*/
+  flex: 1 auto;
+  border: 2px solid #555555;
+  margin: 0px 10px;
 }
 
 .statustop > ul {
   justify-content: space-around;
-  height: 100%;
   align-items: center;
 }
 
 .statusbottom {
-  flex: 1 content;
-  border: 2px solid;
-  margin-top: 2px;
+  flex: 1 auto;
+  border: 2px solid #555555;
+  margin: 10px;
 }
 
 .statusbottom > ul {
@@ -88,38 +106,53 @@ ul {
 /*Includes .header and .payouts*/
 .sidebar {
   display: flex;
+  width: 400px;
   flex-direction: column;
-  flex: 1 auto;
+}
+
+.sidebar p {
+  font-size: 2vw;
 }
 
 .header {
-  flex: 1.5 auto;
-  border: 2px solid;
+  flex: 1 auto;
+  margin: 10px;
+  background-image: url("../img/beaver.gif");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
 .payouts {
   flex: 0 300px;
-  border: 2px solid;
+  margin: 10px;
+  border: 2px solid #555555;
 }
 
 /*Includes play buttons*/
 .bottom {
-  display: flex;
-  border: 2px solid;
-  flex-direction: row;
   flex: 1 100%;
-  height: 45px;
-  margin-top: 4px;
+  /*margin: 0px 10px 10px 10px;*/
 }
 
-.bottom > ul {
+.bottom > ul > li {
+  flex: 1 10%;
+  height: 50px;
+  padding: 0px 10px 10px 10px;
+}
+
+.bottom > ul > li > button {
+  outline: 0;
   width: 100%;
-  align-content: center;
-  justify-content: space-around;
   height: 100%;
-  align-items: center;
+  background-color: #ffffff;
+  opacity: .7;
+  border-style: none;
+  border-radius: 10px;
+  transition: background-color .3s, opacity 1s;
 }
 
-table {
-  width: 100%;
+.bottom > ul > li > button:hover {
+  opacity: 1;
+  background-color: #a5d1dc;
 }

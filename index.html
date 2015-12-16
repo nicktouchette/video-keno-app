@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Video Keno</title>
+  <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script src="js/jquery-2.1.4.min.js"></script>
 </head>
 <body>
   <audio src="sounds/boop.wav" id="boop" preload></audio>
-  <div class="wrapper">
-    <div class="gamecontainer">
+  <div class="rows">
+    <div class="columns">
       <main class="main">
         <div class="board">
           <!-- flexbox with 80 squares -->
@@ -21,7 +22,7 @@
           <!-- unsorted list with 4 items -->
           <ul>
             <li>Marked <span id="totalMarked"></span></li>
-            <li>Coins Hit <span id="coins-hit"></span></li>
+            <li>Coins Hit <span id="coinsHit"></span></li>
             <li>Multiplier <span id="multiplier"></span></li>
             <li>Hit <span id="totalHits"></span></li>
           </ul>
@@ -37,7 +38,8 @@
       </main>
 
       <aside class="sidebar">
-        <div class="header">Header</div>
+        <p>BEAVER KENO<p>
+        <div class="header"></div>
           <!-- image that animates based on actions-->
         <div class="payouts">
           <!-- table with 7 rows and 3 columns + header column -->
@@ -55,12 +57,12 @@
     <div class="bottom">
       <!-- unsorted list with 6 list items w/ img -->
       <ul>
-        <li><input type="button" id="speed" value="Speed"/></li>
-        <li><input type="button" id="betMax" value="Bet Max"/></li>
-        <li><input type="button" id="betDown" value="Bet Down"/></li>
-        <li><input type="button" id="betUp" value="Bet Up"/></li>
-        <li><input type="button" id="erase" value="Erase"/></li>
-        <li><input type="button" id="start" value="START"/></li>
+        <li><button id="speed">Speed</button></li>
+        <li><button id="betMax">Bet Max</button></li>
+        <li><button id="betDown">Bet Down</button></li>
+        <li><button id="betUp">Bet Up</button></li>
+        <li><button id="erase">Erase</button></li>
+        <li><button id="start">START</button></li>
       </ul>
     </div>
   </div>
