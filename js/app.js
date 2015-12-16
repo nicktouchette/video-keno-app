@@ -152,6 +152,8 @@ $(document).ready(function() {
     selfRefresh.multiplier = 1;
     populatePayoutTable();
 
+    $('#speed').text(`Speed ${ 400 / drawSpeed }X`);
+
     for (var i = 0; i < 80; i++) {
       // create Square object with values 1 to 80 and push to board
       board.push(new Square(i));
