@@ -150,6 +150,7 @@ $(document).ready(function() {
     selfRefresh.hitCount = 0;
     selfRefresh.coinsHit = 0;
     selfRefresh.multiplier = 1;
+    populatePayoutTable();
 
     for (var i = 0; i < 80; i++) {
       // create Square object with values 1 to 80 and push to board
