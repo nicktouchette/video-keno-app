@@ -253,15 +253,23 @@ $(document).ready(function() {
     var lowestHitGoal = selfRefresh.selectedCount - payoutTable.length + 1;
 
     if (selfRefresh.hitCount >= lowestHitGoal) {
-      setTimeout(function() {
-        $('.header').css("background-image", "url('./img/beaversmoke.gif')");
-        setTimeout(function() {
-          $('.header').css("background-image", "url('./img/beaversmokereverse.gif')");
-          setTimeout(function() {
-            $('.header').css("background-image", "url('./img/beaver.gif')");
-          }, 2000 );
-        }, 2000 );
-      }, 1000 );
+
+      var iterationVar = 0;
+      var animations = [
+        './img/beaversmoke.gif',
+        './img/beaversmokereverse.gif',
+        './img/beaver.gif'
+      ];
+
+      setTimeout(animateSequence, 1000);
+      function animateSequence() {
+
+        if (iterationVar < animations.length) {
+          $('.header').css("background-image", `url(${animations[iterationVar]})`);
+          iterationVar++;
+          setTimeout(animateSequence, 2000);
+        }
+      }
 
       selfRefresh.currentWinAmount = (payoutTable[selfRefresh.hitCount - lowestHitGoal] * selfRefresh.betAmount) * selfRefresh.multiplier;
       selfRefresh.credits += selfRefresh.currentWinAmount;
