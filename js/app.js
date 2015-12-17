@@ -28,6 +28,7 @@ $(document).ready(function() {
 
     set betAmount(x) {
       this.bAmount = x;
+      populatePayoutTable();
       displayStat("#currentBet", x);
     },
     get betAmount() {
