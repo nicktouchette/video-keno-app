@@ -314,13 +314,13 @@ $(document).ready(function() {
   });
 
   $('#betUp').on("click", function() {
-    if (idleState && betAmount < maxBet) {
+    if (idleState && selfRefresh.betAmount < maxBet) {
       selfRefresh.betAmount++;
     }
   });
 
   $('#betDown').on("click", function() {
-    if (idleState && betAmount > 1) {
+    if (idleState && selfRefresh.betAmount > 1) {
       selfRefresh.betAmount--;
     }
   });
