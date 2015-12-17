@@ -128,11 +128,10 @@ ul {
 .header {
   flex: 1 auto;
   margin: 10px;
+}
 
-  background-image: url("../img/beaver.gif");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
+.header img {
+  width: 100%;
 }
 
 .payouts {

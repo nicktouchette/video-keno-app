@@ -268,7 +268,7 @@ $(document).ready(function() {
       function animateSequence() {
 
         if (iterationVar < animations.length) {
-          $('.header').css("background-image", `url(${animations[iterationVar]})`);
+          $('.header img').attr("src", `${animations[iterationVar]}`);
           iterationVar++;
           setTimeout(animateSequence, 2000);
         }
