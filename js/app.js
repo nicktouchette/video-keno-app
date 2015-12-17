@@ -258,15 +258,14 @@ $(document).ready(function() {
     var lowestHitGoal = selfRefresh.selectedCount - payoutTable.length + 1;
 
     if (selfRefresh.hitCount >= lowestHitGoal) {
-      var animations = [
-        ['./img/beaversmoke.gif', 1000],
-        ['./img/beaversmokereverse.gif', 2000],
-        ['./img/beaver.gif', 500]
-      ];
-
       if (!animationState) {
-        var iterationVar = 0;
         animationState = true;
+        var animations = [
+          ['./img/beaversmoke.gif', 1000],
+          ['./img/beaversmokereverse.gif', 2000],
+          ['./img/beaver.gif', 500]
+        ];
+        var iterationVar = 0;
         setTimeout(animateSequence, animations[iterationVar][1]);
       }
 
