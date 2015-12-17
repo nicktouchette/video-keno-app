@@ -4,7 +4,8 @@ $(document).ready(function() {
     drawSpeed = 200,
     mouseDown = false,
     maxBet = 8,
-    idleState = true;
+    idleState = true,
+    animationState = false;
 
   // set of variables will refresh UI when changed
   var selfRefresh = {
@@ -257,21 +258,25 @@ $(document).ready(function() {
     var lowestHitGoal = selfRefresh.selectedCount - payoutTable.length + 1;
 
     if (selfRefresh.hitCount >= lowestHitGoal) {
-
-      var iterationVar = 0;
       var animations = [
-        './img/beaversmoke.gif',
-        './img/beaversmokereverse.gif',
-        './img/beaver.gif'
+        ['./img/beaversmoke.gif', 1000],
+        ['./img/beaversmokereverse.gif', 2000],
+        ['./img/beaver.gif', 500]
       ];
 
-      setTimeout(animateSequence, 1000);
-      function animateSequence() {
+      if (!animationState) {
+        var iterationVar = 0;
+        animationState = true;
+        setTimeout(animateSequence, animations[iterationVar][1]);
+      }
 
+      function animateSequence() {
+        $('.header img').attr("src", animations[iterationVar][0]);
+        iterationVar++;
         if (iterationVar < animations.length) {
-          $('.header img').attr("src", `${animations[iterationVar]}`);
-          iterationVar++;
-          setTimeout(animateSequence, 2000);
+          setTimeout(animateSequence, animations[iterationVar][1]);
+        } else {
+          animationState = false;
         }
       }
 
