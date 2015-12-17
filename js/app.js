@@ -261,9 +261,10 @@ $(document).ready(function() {
       if (!animationState) {
         animationState = true;
         var animations = [
-          ['./img/beaversmoke.gif', 1000],
-          ['./img/beaversmokereverse.gif', 2000],
-          ['./img/beaver.gif', 500]
+          ['./img/beaver_smoke_1.png', 1000],
+          ['./img/beaver_smoke_2.png', 250],
+          ['./img/beaver_smoke_1.png', 2000],
+          ['./img/beaver.gif', 250]
         ];
         var iterationVar = 0;
         setTimeout(animateSequence, animations[iterationVar][1]);
