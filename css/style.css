@@ -90,19 +90,16 @@ ul {
 }
 
 .statustop {
-  flex: 1 auto;
   border: 2px solid #555555;
   margin: 0px 10px;
+  background-color: rgba(55,55,55,.7);
 }
 
 .statustop > ul {
   justify-content: space-around;
-  align-items: center;
-  background-color: rgba(55,55,55,.7);
 }
 
 .statusbottom {
-  flex: 1 auto;
   border: 2px solid #555555;
   margin: 10px;
   background-color: rgba(55,55,55,.7);
@@ -110,8 +107,6 @@ ul {
 
 .statusbottom > ul {
   justify-content: space-around;
-  height: 100%;
-  align-items: center;
 }
 
 /*Includes .header and .payouts*/
@@ -122,7 +117,7 @@ ul {
 }
 
 .sidebar p {
-  font-size: 2vw;
+  font-size: 1.4em;
 }
 
 .header {

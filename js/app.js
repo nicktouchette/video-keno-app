@@ -38,6 +38,7 @@ $(document).ready(function() {
 
     set credits(x) {
       this.cr = x;
+      localStorage.setItem('creditsOwned', x);
       displayStat("#creditTotal", x);
     },
     get credits() {
@@ -83,7 +84,7 @@ $(document).ready(function() {
     7: [1, 4, 30, 150, 2000],
     8: [1, 12, 100, 1500, 8000],
     9: [1, 3, 50, 300, 4000, 9000],
-    10: [3, 25, 130, 1000, 5000, 10000]
+    10: [1, 3, 25, 130, 1000, 5000, 10000]
   };
 
   init();
@@ -148,7 +149,7 @@ $(document).ready(function() {
     selfRefresh.selectedCount = 0;
     selfRefresh.betAmount = 1;
     selfRefresh.currentWinAmount = 0;
-    selfRefresh.credits = 80;
+    selfRefresh.credits = localStorage.creditsOwned || 80;
     selfRefresh.hitCount = 0;
     selfRefresh.coinsHit = 0;
     selfRefresh.multiplier = 1;
