@@ -264,7 +264,11 @@ $(document).ready(function() {
         var animations = [
           ['./img/beaver_smoke_1.png', 1000],
           ['./img/beaver_smoke_2.png', 250],
-          ['./img/beaver_smoke_1.png', 2000],
+          ['./img/beaver_smoke_3.png', 250],
+          ['./img/beaver_smoke_4.png', 500],
+          ['./img/beaver_smoke_5.png', 400],
+          ['./img/beaver_smoke_2.png', 400],
+          ['./img/beaver_smoke_1.png', 1000],
           ['./img/beaver.gif', 250]
         ];
         var iterationVar = 0;
