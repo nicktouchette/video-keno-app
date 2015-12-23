@@ -262,47 +262,51 @@ $(document).ready(function() {
   }
 
   function blinkHitSquares() {
-    for (var i = 0; i < board.length; i++){
+    for (var i = 0; i < board.length; i++) {
       board[i].blink();
     }
   }
+
   function calculatePayout() {
     var payoutTable = payouts[selfRefresh.selectedCount];
     var lowestHitGoal = selfRefresh.selectedCount - payoutTable.length + 1;
 
     if (selfRefresh.hitCount >= lowestHitGoal) {
       blinkHitSquares();
-      if (!animationState) {
-        animationState = true;
-        var animations = [
-          ['./img/beaver_smoke_1.png', 1000],
-          ['./img/beaver_smoke_2.png', 250],
-          ['./img/beaver_smoke_3.png', 250],
-          ['./img/beaver_smoke_4.png', 500],
-          ['./img/beaver_smoke_5.png', 400],
-          ['./img/beaver_smoke_2.png', 400],
-          ['./img/beaver_smoke_1.png', 1000],
-          ['./img/beaver.gif', 250]
-        ];
-        var iterationVar = 0;
-        setTimeout(animateSequence, animations[iterationVar][1]);
-      }
-
-      function animateSequence() {
-        $('.header img').attr("src", animations[iterationVar][0]);
-        iterationVar++;
-        if (iterationVar < animations.length) {
-          setTimeout(animateSequence, animations[iterationVar][1]);
-        } else {
-          animationState = false;
-        }
-      }
+      animateHeader()
 
       selfRefresh.currentWinAmount = (payoutTable[selfRefresh.hitCount - lowestHitGoal] * selfRefresh.betAmount) * selfRefresh.multiplier;
       selfRefresh.credits += selfRefresh.currentWinAmount;
     }
   }
 
+  function animateHeader() {
+    if (!animationState) {
+      animationState = true;
+      var animation = [
+        ['./img/beaver_smoke_1.png', 1000],
+        ['./img/beaver_smoke_2.png', 250],
+        ['./img/beaver_smoke_3.png', 250],
+        ['./img/beaver_smoke_4.png', 500],
+        ['./img/beaver_smoke_5.png', 400],
+        ['./img/beaver_smoke_2.png', 400],
+        ['./img/beaver_smoke_1.png', 1000],
+        ['./img/beaver.gif', 250]
+      ];
+      var iterationVar = 0;
+      setTimeout(animateSequence, animation[iterationVar][1]);
+    }
+
+    function animateSequence() {
+      $('.header img').attr("src", animation[iterationVar][0]);
+      iterationVar++;
+      if (iterationVar < animation.length) {
+        setTimeout(animateSequence, animation[iterationVar][1]);
+      } else {
+        animationState = false;
+      }
+    }
+  }
   // Button Events
   $('.board li button').on({
     mousedown: function() {
