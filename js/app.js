@@ -156,7 +156,7 @@ $(document).ready(function() {
     selfRefresh.selectedCount = 0;
     selfRefresh.betAmount = 1;
     selfRefresh.currentWinAmount = 0;
-    selfRefresh.credits = localStorage.creditsOwned || 80;
+    selfRefresh.credits = Number(localStorage.creditsOwned) || 80;
     selfRefresh.hitCount = 0;
     selfRefresh.coinsHit = 0;
     selfRefresh.multiplier = 1;
