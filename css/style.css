@@ -90,6 +90,10 @@ ul {
   height: 65px;
 }
 
+.board > ul > li > button:active {
+  border-style: outset;
+}
+
 .statustop {
   border: 2px solid #555555;
   margin: 0px 10px;
