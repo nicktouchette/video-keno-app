@@ -164,3 +164,21 @@ ul {
   opacity: 1;
   background-color: #a5d1dc;
 }
+
+.blink {
+  animation-name: blink;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  0%    { opacity: 1; }
+  50%   { opacity: .5; }
+  100%  {opacity: 1; }
+}
+
+@-webkit-keyframes blink {
+  0%    { opacity: 1; }
+  50%   { opacity: .5; }
+  100%  {opacity: 1; }
+}

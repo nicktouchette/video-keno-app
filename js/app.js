@@ -119,6 +119,12 @@ $(document).ready(function() {
       selfRefresh.hitCount++;
     };
 
+    this.blink = function() {
+      if (this.isHit) {
+        $(this.element).addClass("blink");
+      }
+    }
+
     // Select isSelected and iterate selfRefresh.selectedCount, style accordingly
     this.select = function() {
       if (this.isSelected) {
@@ -137,6 +143,7 @@ $(document).ready(function() {
       if (this.isHit === true) {
         selfRefresh.hitCount--;
         this.isHit = false;
+        $(this.element).removeClass("blink");
       }
       $(this.element).css("color", "initial");
       $(this.element).text(this.index + 1);
@@ -254,11 +261,17 @@ $(document).ready(function() {
     }
   }
 
+  function blinkHitSquares() {
+    for (var i = 0; i < board.length; i++){
+      board[i].blink();
+    }
+  }
   function calculatePayout() {
     var payoutTable = payouts[selfRefresh.selectedCount];
     var lowestHitGoal = selfRefresh.selectedCount - payoutTable.length + 1;
 
     if (selfRefresh.hitCount >= lowestHitGoal) {
+      blinkHitSquares();
       if (!animationState) {
         animationState = true;
         var animations = [
