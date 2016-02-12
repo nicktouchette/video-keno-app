@@ -102,7 +102,7 @@ $(document).ready(function() {
       $(this.element).css("color", "rgb(255,255,255)");
       // clone audio boop so multiple can be played
       var boop = document.getElementById("boop").cloneNode(true);
-      boop.volume = .3;
+      boop.volume = 0.3;
       if (this.isSelected) {
         this.hit();
         boop.volume = 1;
@@ -272,7 +272,7 @@ $(document).ready(function() {
 
     if (selfRefresh.hitCount >= lowestHitGoal) {
       blinkHitSquares();
-      animateHeader()
+      animateHeader();
 
       selfRefresh.currentWinAmount = (payoutTable[selfRefresh.hitCount - lowestHitGoal] * selfRefresh.betAmount) * selfRefresh.multiplier;
       selfRefresh.credits += selfRefresh.currentWinAmount;
