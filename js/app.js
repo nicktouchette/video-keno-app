@@ -7,6 +7,8 @@ $(document).ready(function() {
     idleState = true,
     animationState = false;
 
+  var boop = document.getElementById("boop");
+
   // set of variables will refresh UI when changed
   var selfRefresh = {
     sCount: 0,
@@ -101,13 +103,14 @@ $(document).ready(function() {
     this.highlight = function() {
       $(this.element).css("color", "rgb(255,255,255)");
       // clone audio boop so multiple can be played
-      var boop = document.getElementById("boop").cloneNode(true);
-      boop.volume = 0.3;
+      this.sound = boop.cloneNode(false);
+      this.sound.volume = 0.3;
       if (this.isSelected) {
         this.hit();
-        boop.volume = 1;
+        this.sound.volume = 1;
       }
-      boop.play();
+      this.sound.play();
+      this.sound.remove();
     };
 
     // mark square as hit if selected is true
