@@ -5,7 +5,8 @@ $(document).ready(function() {
     mouseDown = false,
     maxBet = 8,
     idleState = true,
-    animationState = false;
+    animationState = false,
+    boopArray = [];
 
   var boop = document.getElementById("boop");
 
@@ -100,17 +101,15 @@ $(document).ready(function() {
     // create button in DOM using jquery
     $(".board ul").append(`<li><button btn-id="${this.number}">${this.number}</button></li>`);
     // highlight a square and detect if square is selected
-    this.highlight = function() {
+    this.highlight = function(count) {
       $(this.element).css("color", "rgb(255,255,255)");
-      // clone audio boop so multiple can be played
-      this.sound = boop.cloneNode(false);
+      this.sound = boopArray[count];
       this.sound.volume = 0.3;
       if (this.isSelected) {
         this.hit();
         this.sound.volume = 1;
       }
       this.sound.play();
-      this.sound.remove();
     };
 
     // mark square as hit if selected is true
@@ -166,6 +165,11 @@ $(document).ready(function() {
 
     $('#speed').text(`Speed ${ 400 / drawSpeed }X`);
 
+    for (var i = 0; i < 20; i++) {
+      // clone audio boop so multiple can be played
+      boopArray[i] = boop.cloneNode(true);
+    }
+
     for (var i = 1; i <= 80; i++) {
       // create Square object with values 1 to 80 and push to board
       board.push(new Square(i));
@@ -217,7 +221,7 @@ $(document).ready(function() {
       }
 
       function highlight() {
-        board[randomNumbers[count] - 1].highlight();
+        board[randomNumbers[count] - 1].highlight(count);
         if (count === randomNumbers.length - 1) {
           calculatePayout();
           idleState = true;
