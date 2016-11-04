@@ -1,5 +1,7 @@
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
   margin: 0px;
   padding: 0px;
 }
@@ -35,6 +37,8 @@ div#preloaded-images {
 
 .rows {
   display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
   display: -ms-flexbox;
   display: flex;
   margin: auto;
@@ -45,12 +49,15 @@ div#preloaded-images {
   max-width: 1000px;
   min-width: 500px;
   min-height: 300px;
-  -ms-flex-flow: row wrap;
-      flex-flow: row wrap;
+  -webkit-flex-flow: row wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
 }
 
 .columns {
   display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
   display: -ms-flexbox;
   display: flex;
   text-align: center;
@@ -59,23 +66,35 @@ div#preloaded-images {
 /*Includes .board .statustop .statusbottom*/
 .main {
   display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+     -moz-box-orient: vertical;
+     -moz-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
   -webkit-box-flex: 1;
+  -webkit-flex: 1 100%;
+     -moz-box-flex: 1;
       -ms-flex: 1 100%;
           flex: 1 100%;
 }
 
 .board {
   display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+     -moz-box-orient: horizontal;
+     -moz-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
   padding: 10px;
@@ -84,11 +103,14 @@ div#preloaded-images {
 
 ul {
   display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
   display: -ms-flexbox;
   display: flex;
   list-style: none;
-  -ms-flex-flow: row wrap;
-      flex-flow: row wrap;
+  -webkit-flex-flow: row wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
 }
 
 .board > ul > li {
@@ -100,9 +122,15 @@ ul {
   outline: 0;
   background-image: -webkit-radial-gradient(50% 80%, rgba(255,255,255,0.50) 20%, rgba(0,0,0,0.49) 100%),
                     -webkit-linear-gradient(230deg, #000000 10%, #ffffff 100%);
+  background-image: -moz-radial-gradient(50% 80%, rgba(255,255,255,0.50) 20%, rgba(0,0,0,0.49) 100%),
+                    -moz-linear-gradient(230deg, #000000 10%, #ffffff 100%);
+  background-image: -o-radial-gradient(50% 80%, rgba(255,255,255,0.50) 20%, rgba(0,0,0,0.49) 100%),
+                    -o-linear-gradient(230deg, #000000 10%, #ffffff 100%);
   background-image: radial-gradient(50% 80%, rgba(255,255,255,0.50) 20%, rgba(0,0,0,0.49) 100%),
                     linear-gradient(220deg, #000000 10%, #ffffff 100%);
-  border-radius: 100px;
+  -webkit-border-radius: 100px;
+     -moz-border-radius: 100px;
+          border-radius: 100px;
   border-width: 0.13em;
   font-size: 2.8em;
   color: #000000;
@@ -122,13 +150,17 @@ ul {
   background-color: rgba(55,55,55,.7);
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+     -moz-box-orient: horizontal;
+     -moz-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
 }
 
 .statustop > ul {
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
 }
 
 .statusbottom {
@@ -138,25 +170,36 @@ ul {
   background-color: rgba(55,55,55,.7);
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+     -moz-box-orient: horizontal;
+     -moz-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
 }
 
 .statusbottom > ul {
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
 }
 
 /*Includes .header and .payouts*/
 .sidebar {
   display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-flex: 1;
+  -webkit-flex: 1 40%;
+     -moz-box-flex: 1;
       -ms-flex: 1 40%;
           flex: 1 40%;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+     -moz-box-orient: vertical;
+     -moz-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
 }
@@ -176,6 +219,8 @@ ul {
 .payouts {
   font-size: 1.2em;
   -webkit-box-flex: 1;
+  -webkit-flex: 1 100%;
+     -moz-box-flex: 1;
       -ms-flex: 1 100%;
           flex: 1 100%;
   margin: 10px;
@@ -186,12 +231,16 @@ ul {
 /*Includes play buttons*/
 .bottom {
   -webkit-box-flex: 1;
+  -webkit-flex: 1 100%;
+     -moz-box-flex: 1;
       -ms-flex: 1 100%;
           flex: 1 100%;
 }
 
 .bottom > ul > li {
   -webkit-box-flex: 1;
+  -webkit-flex: 1 10%;
+     -moz-box-flex: 1;
       -ms-flex: 1 10%;
           flex: 1 10%;
   margin: 0px 10px 5px 10px;
@@ -207,8 +256,12 @@ ul {
   background-color: #ffffff;
   opacity: .7;
   border-style: none;
-  border-radius: 10px;
+  -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
+          border-radius: 10px;
   -webkit-transition: background-color .3s, opacity 1s;
+  -o-transition: background-color .3s, opacity 1s;
+  -moz-transition: background-color .3s, opacity 1s;
   transition: background-color .3s, opacity 1s;
 }
 
@@ -219,11 +272,29 @@ ul {
 
 .blink {
   -webkit-animation-name: blink;
+     -moz-animation-name: blink;
+       -o-animation-name: blink;
           animation-name: blink;
   -webkit-animation-duration: 2s;
+     -moz-animation-duration: 2s;
+       -o-animation-duration: 2s;
           animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
+     -moz-animation-iteration-count: infinite;
+       -o-animation-iteration-count: infinite;
           animation-iteration-count: infinite;
+}
+
+@-moz-keyframes blink {
+  0%    { opacity: 1; }
+  50%   { opacity: .5; }
+  100%  {opacity: 1; }
+}
+
+@-o-keyframes blink {
+  0%    { opacity: 1; }
+  50%   { opacity: .5; }
+  100%  {opacity: 1; }
 }
 
 @keyframes blink {
