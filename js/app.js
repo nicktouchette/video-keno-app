@@ -316,11 +316,13 @@ $(document).ready(function() {
   // Button Events
   $('.board li button').on({
     mousedown: function() {
-      board[$(this).attr("btn-id") - 1].select();
-      mouseDown = true;
+      if (idleState) {
+        board[$(this).attr("btn-id") - 1].select();
+        mouseDown = true;
+      }
     },
     mouseover: function() {
-      if (mouseDown)
+      if (idleState && mouseDown)
         board[$(this).attr("btn-id") - 1].select();
     }
   });
