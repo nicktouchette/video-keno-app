@@ -6,7 +6,8 @@ $(document).ready(function() {
     maxBet = 8,
     idleState = true,
     animationState = false,
-    boopArray = [];
+    boopArray = [],
+    numberArray = [];
 
   var boop = document.getElementById("boop");
 
@@ -100,9 +101,11 @@ $(document).ready(function() {
 
     // create button in DOM using jquery
     $(".board ul").append(`<li><button btn-id="${this.number}">${this.number}</button></li>`);
+    this.element = $(this.element);
+
     // highlight a square and detect if square is selected
     this.highlight = function(count) {
-      $(this.element).css("color", "rgb(255,255,255)");
+      this.element.css("color", "rgb(255,255,255)");
       this.sound = boopArray[count];
       this.sound.volume = 0.3;
       if (this.isSelected) {
@@ -115,14 +118,14 @@ $(document).ready(function() {
     // mark square as hit if selected is true
     // increment hits variable and enable hit flag
     this.hit = function() {
-      $(this.element).text("HIT");
+      this.element.text("HIT");
       this.isHit = true;
       selfRefresh.hitCount++;
     };
 
     this.blink = function() {
       if (this.isHit) {
-        $(this.element).addClass("blink");
+        this.element.addClass("blink");
       }
     };
 
@@ -131,11 +134,11 @@ $(document).ready(function() {
       if (this.isSelected) {
         this.isSelected = false;
         selfRefresh.selectedCount--;
-        $(this.element).css("border-color", "inherit");
+        this.element.css("border-color", "inherit");
       } else if (selfRefresh.selectedCount < 10) {
         this.isSelected = true;
         selfRefresh.selectedCount++;
-        $(this.element).css("border-color", "yellow");
+        this.element.css("border-color", "yellow");
       }
     };
 
@@ -144,10 +147,10 @@ $(document).ready(function() {
       if (this.isHit === true) {
         selfRefresh.hitCount--;
         this.isHit = false;
-        $(this.element).removeClass("blink");
+        this.element.removeClass("blink");
       }
-      $(this.element).css("color", "initial");
-      $(this.element).text(this.number);
+      this.element.css("color", "initial");
+      this.element.text(this.number);
     };
   };
 
@@ -172,6 +175,7 @@ $(document).ready(function() {
 
     for (var i = 1; i <= 80; i++) {
       // create Square object with values 1 to 80 and push to board
+      numberArray.push(i);
       board.push(new Square(i));
     }
   }
@@ -179,14 +183,11 @@ $(document).ready(function() {
   // Randomly generate 20 unique numbers and return the array
   function generateNumbers() {
     var randomNumberArray = [],
-        availableNumbers = [];
-
-    for (var i = 1; i <= 80; i++) {
-      availableNumbers.push(i);
-    }
+        randomNumber,
+        availableNumbers = numberArray.slice();
 
     for (var i = 0; i < 20; i++) {
-      var randomNumber = Math.floor(Math.random() * (availableNumbers.length));
+      randomNumber = Math.floor(Math.random() * (availableNumbers.length));
       randomNumberArray.push(Number(availableNumbers.splice(randomNumber, 1)));
     }
     return randomNumberArray;
