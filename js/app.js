@@ -207,6 +207,17 @@ $(document).ready(function() {
     });
   }
 
+  function setIntervalX(callback, delay, repetitions) {
+    var x = 0;
+    var intervalID = window.setInterval(function () {
+     callback();
+
+     if (++x === repetitions) {
+         window.clearInterval(intervalID);
+     }
+    }, delay);
+  }
+
   function startRound() {
     if (selfRefresh.selectedCount >= 4) {
       if (bet()) {
@@ -217,7 +228,7 @@ $(document).ready(function() {
         selfRefresh.currentWinAmount = 0;
 
         resetBoard();
-        setTimeout(highlight, drawSpeed);
+        setIntervalX(highlight, drawSpeed, 20);
       }
 
       function highlight() {
@@ -225,10 +236,8 @@ $(document).ready(function() {
         if (count === randomNumbers.length - 1) {
           calculatePayout();
           idleState = true;
-        } else {
-          count++;
-          setTimeout(highlight, drawSpeed);
         }
+        count++;
       }
     }
   }
