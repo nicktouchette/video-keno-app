@@ -7,9 +7,8 @@ $(document).ready(function() {
     idleState = true,
     animationState = false,
     boopArray = [],
-    numberArray = [];
-
-  var boop = document.getElementById("boop");
+    numberArray = [],
+    boop;
 
   // set of variables will refresh UI when changed
   var selfRefresh = {
@@ -96,12 +95,11 @@ $(document).ready(function() {
   function Square(index) {
     this.number = index;
     this.isSelected = false;
-    this.element = `.board ul li:nth-child(${this.number}) button`;
     this.isHit = false;
 
     // create button in DOM using jquery
     $(".board ul").append(`<li><button btn-id="${this.number}">${this.number}</button></li>`);
-    this.element = $(this.element);
+    this.element = $(`.board ul li:nth-child(${this.number}) button`);
 
     // highlight a square and detect if square is selected
     this.highlight = function(count) {
@@ -131,7 +129,7 @@ $(document).ready(function() {
 
     // Select isSelected and iterate selfRefresh.selectedCount, style accordingly
     this.select = function() {
-      if (this.isSelected) {
+      if (idleState === true && this.isSelected) {
         this.isSelected = false;
         selfRefresh.selectedCount--;
         this.element.css("border-color", "inherit");
@@ -167,6 +165,7 @@ $(document).ready(function() {
     populatePayoutTable();
 
     $('#speed').text(`Speed ${ 400 / drawSpeed }X`);
+    boop = document.getElementById("boop");
 
     for (var i = 0; i < 20; i++) {
       // clone audio boop so multiple can be played
