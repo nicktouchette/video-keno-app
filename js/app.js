@@ -6,9 +6,10 @@ $(document).ready(function() {
     maxBet = 8,
     idleState = true,
     animationState = false,
-    boopArray = [],
+    boopNormalArray = [],
+    boopHitArray = [],
     numberArray = [],
-    boop;
+    boop, boopHit;
 
   // set of variables will refresh UI when changed
   var selfRefresh = {
@@ -104,11 +105,11 @@ $(document).ready(function() {
     // highlight a square and detect if square is selected
     this.highlight = function(count) {
       this.element.css("color", "rgb(255,255,255)");
-      this.sound = boopArray[count];
-      this.sound.volume = 0.3;
       if (this.isSelected) {
         this.hit();
-        this.sound.volume = 1;
+        this.sound = boopHitArray[count];
+      } else {
+        this.sound = boopNormalArray[count];
       }
       this.sound.play();
     };
@@ -166,10 +167,12 @@ $(document).ready(function() {
 
     $('#speed').text(`Speed ${ 400 / drawSpeed }X`);
     boop = document.getElementById("boop");
+    boopHit = document.getElementById("boopHit");
 
     for (var i = 0; i < 20; i++) {
       // clone audio boop so multiple can be played
-      boopArray[i] = boop.cloneNode(true);
+      boopNormalArray[i] = boop.cloneNode(true);
+      boopHitArray[i] = boopHit.cloneNode(true);
     }
 
     for (var i = 1; i <= 80; i++) {
@@ -213,7 +216,7 @@ $(document).ready(function() {
      callback();
 
      if (++x === repetitions) {
-         window.clearInterval(intervalID);
+       window.clearInterval(intervalID);
      }
     }, delay);
   }
