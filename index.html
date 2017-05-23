@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Video Keno</title>
-  <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+  <!-- <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'> -->
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script src="js/jquery-2.1.4.min.js"></script>
 </head>
@@ -17,36 +17,35 @@
   </div>
   <audio src="sounds/boop_normal.wav" id="boop" preload></audio>
   <audio src="sounds/boop_hit.wav" id="boopHit" preload></audio>
-  <div class="rows">
-    <div class="columns">
-      <main class="main">
+  <div class="container">
+    <div class="top">
+      <main class="viewport">
         <div class="board">
-          <!-- flexbox with 80 squares -->
-          <ul>
-            <!-- fill with square using javascript -->
-          </ul>
+          <!-- 80 squares filled with Javascript-->
         </div>
-        <div class="statustop">
-          <!-- unsorted list with 4 items -->
-          <ul>
-            <li>Marked <span id="totalMarked"></span></li>
-            <li>Coins Hit <span id="coinsHit"></span></li>
-            <li>Multiplier <span id="multiplier"></span></li>
-            <li>Hit <span id="totalHits"></span></li>
-          </ul>
-        </div>
-        <div class="statusbottom">
-          <!-- unsorted list with 3 list items -->
-          <ul>
-            <li>Bet <span id="currentBet"></span></li>
-            <li>Win <span id="currentWinAmount"></span></li>
-            <li>Credits <span id="creditTotal"></span></li>
-          </ul>
+        <div class="status">
+          <div class="statustop">
+            <!-- unsorted list with 4 items -->
+            <ul>
+              <li>Marked <span id="totalMarked"></span></li>
+              <li>Coins Hit <span id="coinsHit"></span></li>
+              <li>Multiplier <span id="multiplier"></span></li>
+              <li>Hit <span id="totalHits"></span></li>
+            </ul>
+          </div>
+          <div class="statusbottom">
+            <!-- unsorted list with 3 list items -->
+            <ul>
+              <li>Bet <span id="currentBet"></span></li>
+              <li>Win <span id="currentWinAmount"></span></li>
+              <li>Credits <span id="creditTotal"></span></li>
+            </ul>
+          </div>
         </div>
       </main>
 
       <aside class="sidebar">
-        <p>BEAVER KENO<p>
+        <p>BEAVER KENO</p>
         <!-- image that animates based on actions-->
         <div class="header"><img src="./img/beaver.gif"/></div>
 
@@ -65,12 +64,12 @@
     <div class="bottom">
       <!-- unsorted list with 6 list items w/ img -->
       <ul>
-        <li><button id="speed">Speed</button></li>
-        <li><button id="betMax">Bet Max</button></li>
-        <li><button id="betDown">Bet Down</button></li>
-        <li><button id="betUp">Bet Up</button></li>
-        <li><button id="erase">Erase</button></li>
-        <li><button id="start">START</button></li>
+        <li><button draggable="false" id="speed">Speed</button></li>
+        <li><button draggable="false" id="betMax">Bet Max</button></li>
+        <li><button draggable="false" id="betDown">Bet Down</button></li>
+        <li><button draggable="false" id="betUp">Bet Up</button></li>
+        <li><button draggable="false" id="erase">Erase</button></li>
+        <li><button draggable="false" id="start">START</button></li>
       </ul>
     </div>
   </div>

@@ -12,7 +12,7 @@ $(document).ready(function() {
     boop, boopHit;
 
   // set of variables will refresh UI when changed
-  var selfRefresh = {
+  var vars = {
     sCount: 0,
     bAmount: 0,
     cr: 0,
@@ -99,12 +99,30 @@ $(document).ready(function() {
     this.isHit = false;
 
     // create button in DOM using jquery
-    $(".board ul").append(`<li><button btn-id="${this.number}">${this.number}</button></li>`);
-    this.element = $(`.board ul li:nth-child(${this.number}) button`);
+
+    var square = this;
+    this.element = $(`<button class='square noselect' draggable="false">${this.number}</button>`)
+                  .appendTo(".board")
+                  .on({
+                    mousedown: function() {
+                      if (idleState) {
+                        square.select();
+                        mouseDown = true;
+                      }
+                    },
+                    mouseover: function() {
+                      if (idleState && mouseDown)
+                        square.select();
+                    }
+                  });
+
+    if (this.number % 10 === 0) {
+      $(".board").append(`<br>`)
+    }
 
     // highlight a square and detect if square is selected
     this.highlight = function(count) {
-      this.element.css("color", "rgb(255,255,255)");
+      this.element.addClass("highlight");
       if (this.isSelected) {
         this.hit();
         this.sound = boopHitArray[count];
@@ -119,7 +137,7 @@ $(document).ready(function() {
     this.hit = function() {
       this.element.text("HIT");
       this.isHit = true;
-      selfRefresh.hitCount++;
+      vars.hitCount++;
     };
 
     this.blink = function() {
@@ -128,27 +146,27 @@ $(document).ready(function() {
       }
     };
 
-    // Select isSelected and iterate selfRefresh.selectedCount, style accordingly
+    // Select isSelected and iterate vars.selectedCount, style accordingly
     this.select = function() {
       if (idleState === true && this.isSelected) {
         this.isSelected = false;
-        selfRefresh.selectedCount--;
-        this.element.css("border-color", "inherit");
-      } else if (selfRefresh.selectedCount < 10) {
+        vars.selectedCount--;
+        this.element.removeClass("selected");
+      } else if (vars.selectedCount < 10) {
         this.isSelected = true;
-        selfRefresh.selectedCount++;
-        this.element.css("border-color", "yellow");
+        vars.selectedCount++;
+        this.element.addClass("selected");
       }
     };
 
-    // resets the isHit flag to false, deducts selfRefresh.hitCount, and resets color/text
+    // resets the isHit flag to false, deducts vars.hitCount, and resets color/text
     this.reset = function() {
       if (this.isHit === true) {
-        selfRefresh.hitCount--;
+        vars.hitCount--;
         this.isHit = false;
         this.element.removeClass("blink");
       }
-      this.element.css("color", "initial");
+      this.element.removeClass("highlight");
       this.element.text(this.number);
     };
   };
@@ -156,13 +174,13 @@ $(document).ready(function() {
   // Create button objects and display board
   function init() {
     // set default variables
-    selfRefresh.selectedCount = 0;
-    selfRefresh.betAmount = 1;
-    selfRefresh.currentWinAmount = 0;
-    selfRefresh.credits = Number(localStorage.creditsOwned) || 80;
-    selfRefresh.hitCount = 0;
-    selfRefresh.coinsHit = 0;
-    selfRefresh.multiplier = 1;
+    vars.selectedCount = 0;
+    vars.betAmount = 1;
+    vars.currentWinAmount = 0;
+    vars.credits = Number(localStorage.creditsOwned) || 80;
+    vars.hitCount = 0;
+    vars.coinsHit = 0;
+    vars.multiplier = 1;
     populatePayoutTable();
 
     $('#speed').text(`Speed ${ 400 / drawSpeed }X`);
@@ -222,13 +240,13 @@ $(document).ready(function() {
   }
 
   function startRound() {
-    if (selfRefresh.selectedCount >= 4) {
+    if (vars.selectedCount >= 4) {
       if (bet()) {
         idleState = false;
 
         var randomNumbers = generateNumbers();
         var count = 0;
-        selfRefresh.currentWinAmount = 0;
+        vars.currentWinAmount = 0;
 
         resetBoard();
         setIntervalX(highlight, drawSpeed, 20);
@@ -247,8 +265,8 @@ $(document).ready(function() {
 
   // test if player has enough money and then subtract bet from credits
   function bet() {
-    if (selfRefresh.credits >= selfRefresh.betAmount) {
-      selfRefresh.credits -= selfRefresh.betAmount;
+    if (vars.credits >= vars.betAmount) {
+      vars.credits -= vars.betAmount;
       return true;
     } else {
       return false;
@@ -262,8 +280,8 @@ $(document).ready(function() {
 
   function populatePayoutTable() {
     clearRows();
-    var payoutTable = payouts[(selfRefresh.selectedCount < 4 ? 4 : selfRefresh.selectedCount)];
-    var lowestHitGoal = (selfRefresh.selectedCount < 4 ? 4 : selfRefresh.selectedCount) - payoutTable.length + 1;
+    var payoutTable = payouts[(vars.selectedCount < 4 ? 4 : vars.selectedCount)];
+    var lowestHitGoal = (vars.selectedCount < 4 ? 4 : vars.selectedCount) - payoutTable.length + 1;
 
     for (var i = 0; i < payoutTable.length; i++) {
       createRow(lowestHitGoal + i, payoutTable[i]);
@@ -275,7 +293,7 @@ $(document).ready(function() {
 
     function createRow(hitGoal, payoutPays) {
       $('.payouts > table').append(`<tr hitGoal=${hitGoal}></tr>`);
-      $(`tr[hitGoal="${hitGoal}"]`).append(`<td>${hitGoal}</td><td>${payoutPays * selfRefresh.betAmount}</td><td>${payoutPays * selfRefresh.multiplier}</td>`);
+      $(`tr[hitGoal="${hitGoal}"]`).append(`<td>${hitGoal}</td><td>${payoutPays * vars.betAmount}</td><td>${payoutPays * vars.multiplier}</td>`);
     }
   }
 
@@ -286,15 +304,15 @@ $(document).ready(function() {
   }
 
   function calculatePayout() {
-    var payoutTable = payouts[selfRefresh.selectedCount];
-    var lowestHitGoal = selfRefresh.selectedCount - payoutTable.length + 1;
+    var payoutTable = payouts[vars.selectedCount];
+    var lowestHitGoal = vars.selectedCount - payoutTable.length + 1;
 
-    if (selfRefresh.hitCount >= lowestHitGoal) {
+    if (vars.hitCount >= lowestHitGoal) {
       blinkHitSquares();
       animateHeader();
 
-      selfRefresh.currentWinAmount = (payoutTable[selfRefresh.hitCount - lowestHitGoal] * selfRefresh.betAmount) * selfRefresh.multiplier;
-      selfRefresh.credits += selfRefresh.currentWinAmount;
+      vars.currentWinAmount = (payoutTable[vars.hitCount - lowestHitGoal] * vars.betAmount) * vars.multiplier;
+      vars.credits += vars.currentWinAmount;
     }
   }
 
@@ -326,19 +344,6 @@ $(document).ready(function() {
     }
   }
   // Button Events
-  $('.board li button').on({
-    mousedown: function() {
-      if (idleState) {
-        board[$(this).attr("btn-id") - 1].select();
-        mouseDown = true;
-      }
-    },
-    mouseover: function() {
-      if (idleState && mouseDown)
-        board[$(this).attr("btn-id") - 1].select();
-    }
-  });
-
   $('.board').on("mouseup", function() {
     mouseDown = false;
   });
@@ -357,19 +362,19 @@ $(document).ready(function() {
 
   $('#betMax').on("click", function() {
     if (idleState) {
-      selfRefresh.betAmount = maxBet;
+      vars.betAmount = maxBet;
     }
   });
 
   $('#betUp').on("click", function() {
-    if (idleState && selfRefresh.betAmount < maxBet) {
-      selfRefresh.betAmount++;
+    if (idleState && vars.betAmount < maxBet) {
+      vars.betAmount++;
     }
   });
 
   $('#betDown').on("click", function() {
-    if (idleState && selfRefresh.betAmount > 1) {
-      selfRefresh.betAmount--;
+    if (idleState && vars.betAmount > 1) {
+      vars.betAmount--;
     }
   });
 

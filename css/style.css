@@ -6,11 +6,19 @@
   padding: 0px;
 }
 
+html, body {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
 body {
   font-family: 'Oswald', sans-serif;
   background-color: #111111;
   background-image: url('../img/background.png');
   font-size: 1vw;
+  max-width: 1920px;
+  max-height: 1090px;
 }
 
 span {
@@ -26,6 +34,10 @@ table th {
   background-color: rgba(255,255,255,.2)
 }
 
+ul {
+  list-style: none;
+}
+
 div#preloaded-images {
   position: absolute;
   overflow: hidden;
@@ -35,90 +47,41 @@ div#preloaded-images {
   width: 1px;
 }
 
-.rows {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin: auto;
-  margin-top: 5vh;
+.container {
+  /*overflow: hidden;*/
+  margin: 0;
+  position: relative;
   color: #bbbbbb;
   border: 5px solid #555555;
   background-color: rgba(0,0,0,.5);
-  max-width: 1000px;
-  min-width: 500px;
-  min-height: 300px;
-  -webkit-flex-flow: row wrap;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+  max-height: 100%;
 }
 
-.columns {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  text-align: center;
+.top {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 /*Includes .board .statustop .statusbottom*/
-.main {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-     -moz-box-orient: vertical;
-     -moz-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 100%;
-     -moz-box-flex: 1;
-      -ms-flex: 1 100%;
-          flex: 1 100%;
+.viewport {
+  position: relative;
+  display: inline-block;
+  width: 70em;
+  height: 100%;
 }
 
 .board {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-     -moz-box-orient: horizontal;
-     -moz-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  padding: 10px;
-  max-height: 690px;
+  position: relative;
+  display: inline-block;
+  padding: 0.5em;
+  font-size: 1.8em;
+  width: 100%;
+  text-align: center;
 }
 
-ul {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  list-style: none;
-  -webkit-flex-flow: row wrap;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
-}
-
-.board > ul > li {
-  width: 10%;
-  height: 8%;
-}
-
-.board > ul > li > button {
+.square {
   outline: 0;
   background-image: -webkit-radial-gradient(50% 80%, rgba(255,255,255,0.50) 20%, rgba(0,0,0,0.49) 100%),
                     -webkit-linear-gradient(230deg, #000000 10%, #ffffff 100%);
@@ -132,76 +95,55 @@ ul {
      -moz-border-radius: 100px;
           border-radius: 100px;
   border-width: 0.13em;
-  font-size: 2.8em;
   color: #000000;
-  width: 100%;
-  height: 7vw;
-  max-height: 68.7px;
+  font-size: 2em;
+  width: 1.7em;
+  height: 1.7em;
 }
 
-.board > ul > li > button:active {
+.board > button:active {
   border-style: outset;
 }
 
+.status {
+  /*position: absolute;*/
+  /*bottom: 0;*/
+  width: 100%;
+  text-align: center;
+}
+
 .statustop {
-  font-size: 1.2em;
+  font-size: 2em;
   border: 2px solid #555555;
   margin: 0px 10px;
   background-color: rgba(55,55,55,.7);
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-     -moz-box-orient: horizontal;
-     -moz-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
 }
 
-.statustop > ul {
-  -webkit-justify-content: space-around;
-      -ms-flex-pack: distribute;
-          justify-content: space-around;
+.statustop > ul > li {
+  display: inline-block;
+  width: 24%;
 }
 
 .statusbottom {
-  font-size: 1.2em;
+  font-size: 2em;
   border: 2px solid #555555;
   margin: 10px;
   background-color: rgba(55,55,55,.7);
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-     -moz-box-orient: horizontal;
-     -moz-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
 }
 
-.statusbottom > ul {
-  -webkit-justify-content: space-around;
-      -ms-flex-pack: distribute;
-          justify-content: space-around;
+.statusbottom > ul > li{
+  display: inline-block;
+  width: 32%;
 }
 
 /*Includes .header and .payouts*/
 .sidebar {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 40%;
-     -moz-box-flex: 1;
-      -ms-flex: 1 40%;
-          flex: 1 40%;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-     -moz-box-orient: vertical;
-     -moz-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  position: absolute;
+  display: inline-block;
+  width: 28em;
+  vertical-align: top;
+  height: 100%;
+  text-align: center;
 }
 
 .sidebar p {
@@ -217,12 +159,13 @@ ul {
 }
 
 .payouts {
+  position: absolute;
+  vertical-align: top;
   font-size: 1.2em;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 100%;
-     -moz-box-flex: 1;
-      -ms-flex: 1 100%;
-          flex: 1 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 25em;
   margin: 10px;
   border: 2px solid #555555;
   background-color: rgba(55,55,55,.7);
@@ -230,20 +173,18 @@ ul {
 
 /*Includes play buttons*/
 .bottom {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 100%;
-     -moz-box-flex: 1;
-      -ms-flex: 1 100%;
-          flex: 1 100%;
+  width: 100%;
+}
+
+.bottom > ul {
+  position: relative;
+  text-align: center;
 }
 
 .bottom > ul > li {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 10%;
-     -moz-box-flex: 1;
-      -ms-flex: 1 10%;
-          flex: 1 10%;
-  margin: 0px 10px 5px 10px;
+  display: inline-block;
+  width: 15.5%;
+  margin: 0px 0.45em;
 }
 
 .bottom > ul > li > button {
@@ -256,9 +197,9 @@ ul {
   background-color: #ffffff;
   opacity: .7;
   border-style: none;
-  -webkit-border-radius: 10px;
-     -moz-border-radius: 10px;
-          border-radius: 10px;
+  -webkit-border-radius: 0.5em;
+     -moz-border-radius: 0.5em;
+          border-radius: 0.5em;
   -webkit-transition: background-color .3s, opacity 1s;
   -o-transition: background-color .3s, opacity 1s;
   -moz-transition: background-color .3s, opacity 1s;
@@ -268,6 +209,14 @@ ul {
 .bottom > ul > li > button:hover {
   opacity: 1;
   background-color: #a5d1dc;
+}
+
+.selected {
+  border-color: yellow;
+}
+
+.highlight {
+  color: rgb(255,255,255);
 }
 
 .blink {
@@ -283,6 +232,16 @@ ul {
      -moz-animation-iteration-count: infinite;
        -o-animation-iteration-count: infinite;
           animation-iteration-count: infinite;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 
 @-moz-keyframes blink {
