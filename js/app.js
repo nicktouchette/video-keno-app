@@ -383,4 +383,16 @@ $(document).ready(function() {
       eraseSelection();
     }
   });
+
+  var elem = $('.container');
+  $(window).smartresize(function(){
+    var w = elem.width();
+
+    elem.height(w*.5625);
+    elem.show();
+  });
+
+  $(window).resize(function() {
+    elem.hide();
+  }).trigger("resize");
 });

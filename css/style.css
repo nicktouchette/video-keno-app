@@ -13,17 +13,17 @@ html, body {
 }
 
 body {
+  overflow: hidden;
   font-family: 'Oswald', sans-serif;
   background-color: #111111;
   background-image: url('../img/background.png');
-  font-size: 1vw;
-  max-width: 1920px;
-  max-height: 1090px;
+  /*font-size: 9.8px;*/
+  font-size: 1.25vw;
 }
 
 span {
   color: white;
-  padding: 10px;
+  padding: 1em;
 }
 
 table {
@@ -48,36 +48,39 @@ div#preloaded-images {
 }
 
 .container {
-  /*overflow: hidden;*/
   margin: 0;
   position: relative;
   color: #bbbbbb;
   border: 5px solid #555555;
   background-color: rgba(0,0,0,.5);
-  max-height: 100%;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+
 }
 
 .top {
   position: relative;
-  display: block;
   width: 100%;
-  height: 100%;
+  height: 92%;
 }
 
 /*Includes .board .statustop .statusbottom*/
 .viewport {
   position: relative;
   display: inline-block;
-  width: 70em;
+  width: 70%;
   height: 100%;
+  /*padding: 0px 1em;*/
 }
 
 .board {
   position: relative;
   display: inline-block;
-  padding: 0.5em;
+  padding: 0.5em 1.5em 0.5em 1.5em;
   font-size: 1.8em;
   width: 100%;
+  height: 85%;
   text-align: center;
 }
 
@@ -96,9 +99,9 @@ div#preloaded-images {
           border-radius: 100px;
   border-width: 0.13em;
   color: #000000;
-  font-size: 2em;
-  width: 1.7em;
-  height: 1.7em;
+  font-size: 1.25em;
+  width: 10%;
+  height: 12.5%;
 }
 
 .board > button:active {
@@ -106,16 +109,17 @@ div#preloaded-images {
 }
 
 .status {
-  /*position: absolute;*/
-  /*bottom: 0;*/
+  position: relative;
   width: 100%;
   text-align: center;
+  padding: 0em 2em;
+  font-size: 1.35em;
 }
 
 .statustop {
-  font-size: 2em;
+  width: 100%;
+  margin-bottom: 0.5em;
   border: 2px solid #555555;
-  margin: 0px 10px;
   background-color: rgba(55,55,55,.7);
 }
 
@@ -125,9 +129,8 @@ div#preloaded-images {
 }
 
 .statusbottom {
-  font-size: 2em;
+  width: 100%;
   border: 2px solid #555555;
-  margin: 10px;
   background-color: rgba(55,55,55,.7);
 }
 
@@ -140,7 +143,7 @@ div#preloaded-images {
 .sidebar {
   position: absolute;
   display: inline-block;
-  width: 28em;
+  margin-right: 1em;
   vertical-align: top;
   height: 100%;
   text-align: center;
@@ -165,14 +168,16 @@ div#preloaded-images {
   left: 0;
   right: 0;
   bottom: 0;
-  top: 25em;
-  margin: 10px;
+  top: 60%;
   border: 2px solid #555555;
   background-color: rgba(55,55,55,.7);
 }
 
 /*Includes play buttons*/
 .bottom {
+  /*position: absolute;*/
+  /*bottom: 0;*/
+  height: auto;
   width: 100%;
 }
 
@@ -183,13 +188,13 @@ div#preloaded-images {
 
 .bottom > ul > li {
   display: inline-block;
-  width: 15.5%;
-  margin: 0px 0.45em;
+  width: 14.75%;
+  margin: 5px 0.35em;
 }
 
 .bottom > ul > li > button {
   display: block;
-  padding: 10px 0px;
+  padding: 0.25em 0;
   outline: 0;
   font-size: 1.5em;
   width: 100%;
