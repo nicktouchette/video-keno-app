@@ -19,47 +19,51 @@
   <audio src="sounds/boop_hit.wav" id="boopHit" preload></audio>
   <div class="container">
     <div class="top">
-      <main class="viewport">
-        <div class="board">
-          <!-- 80 squares filled with Javascript-->
-        </div>
-        <div class="status">
-          <div class="statustop">
-            <!-- unsorted list with 4 items -->
-            <ul>
-              <li>Marked <span id="totalMarked"></span></li>
-              <li>Coins Hit <span id="coinsHit"></span></li>
-              <li>Multiplier <span id="multiplier"></span></li>
-              <li>Hit <span id="totalHits"></span></li>
-            </ul>
+      <div class="top-container">
+        <main class="viewport">
+          <div class="board">
+            <!-- 80 squares filled with Javascript-->
           </div>
-          <div class="statusbottom">
-            <!-- unsorted list with 3 list items -->
-            <ul>
-              <li>Bet <span id="currentBet"></span></li>
-              <li>Win <span id="currentWinAmount"></span></li>
-              <li>Credits <span id="creditTotal"></span></li>
-            </ul>
+          <div class="status">
+            <div class="statustop">
+              <!-- unsorted list with 4 items -->
+              <ul>
+                <li>Marked <span id="totalMarked"></span></li>
+                <li>Coins Hit <span id="coinsHit"></span></li>
+                <li>Multiplier <span id="multiplier"></span></li>
+                <li>Hit <span id="totalHits"></span></li>
+              </ul>
+            </div>
+            <div class="statusbottom">
+              <!-- unsorted list with 3 list items -->
+              <ul>
+                <li>Bet <span id="currentBet"></span></li>
+                <li>Win <span id="currentWinAmount"></span></li>
+                <li>Credits <span id="creditTotal"></span></li>
+              </ul>
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
 
-      <aside class="sidebar">
-        <p>BEAVER KENO</p>
-        <!-- image that animates based on actions-->
-        <div class="header"><img src="./img/beaver.gif"/></div>
+        <aside class="sidebar">
+          <!-- image that animates based on actions-->
+          <div class="header">
+            <p class="title">BEAVER KENO</p>
+            <img src="./img/beaver.gif"/>
+          </div>
 
-        <div class="payouts">
-          <!-- table with 7 rows and 3 columns + header column -->
-          <table>
-            <tr>
-              <th>Hits</th>
-              <th>Pays</th>
-              <th>W/ Multiplier</th>
-            </tr>
-          </table>
-        </div>
-      </aside>
+          <div class="payouts">
+            <!-- table with 7 rows and 3 columns + header column -->
+            <table>
+              <tr>
+                <th>Hits</th>
+                <th>Pays</th>
+                <th>W/ Multiplier</th>
+              </tr>
+            </table>
+          </div>
+        </aside>
+      </div>
     </div>
     <div class="bottom">
       <!-- unsorted list with 6 list items w/ img -->
