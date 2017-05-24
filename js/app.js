@@ -9,7 +9,9 @@ $(document).ready(function() {
     boopNormalArray = [],
     boopHitArray = [],
     numberArray = [],
-    boop, boopHit;
+    boop, boopHit, w, h;
+
+  var elem = $('#container');
 
   // set of variables will refresh UI when changed
   var vars = {
@@ -384,15 +386,19 @@ $(document).ready(function() {
     }
   });
 
-  var elem = $('.container');
-  $(window).smartresize(function(){
-    var w = elem.width();
-
-    elem.height(w*.5625);
-    elem.show();
-  });
-
   $(window).resize(function() {
     elem.hide();
-  }).trigger("resize");
+    w = Math.floor(elem.width());
+    h = Math.floor(elem.height());
+
+    if (window.innerWidth * .5625 < window.innerHeight) {
+      elem.width(w = window.innerWidth);
+      elem.height(w * .5625);
+    } else {
+      elem.height(h = window.innerHeight);
+      elem.width(h * 1.777778);
+      console.log('fit height and scale sides');
+    }
+    elem.show();
+  }).resize();
 });
