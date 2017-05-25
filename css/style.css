@@ -17,7 +17,6 @@ body {
   font-family: 'Oswald', sans-serif;
   background-color: #111111;
   background-image: url('../img/background.png');
-  font-size: 1.25vw;
 }
 
 span {
@@ -50,6 +49,7 @@ div#preloaded-images {
   width: 640px;
   height: 360px;
   margin: 0;
+  font-size: .45em;
   position: relative;
   color: #bbbbbb;
   border: 0.2em solid #555555;
@@ -200,24 +200,25 @@ div#preloaded-images {
 .bottom > ul {
   position: relative;
   text-align: center;
+  width: 100%;
+  height:100%;
+  margin-top: .75em;
 }
 
 .bottom > ul > li {
   display: inline-block;
-  width: 14.75%;
-  margin: 0.5em 0.35em;
+  width: 9.5em;
+  font-size: 1.5em;
+  opacity: .7;
+
 }
 
-.bottom > ul > li > button {
+.bottom > ul > li > a {
   display: block;
-  padding: 0.25em 0;
-  outline: 0;
-  font-size: 1.5em;
-  width: 100%;
-  height: 100%;
+  color: black;
+  padding: 0.35em 0;
+  text-decoration: none;
   background-color: #ffffff;
-  opacity: .7;
-  border-style: none;
   -webkit-border-radius: 0.5em;
      -moz-border-radius: 0.5em;
           border-radius: 0.5em;
@@ -227,7 +228,7 @@ div#preloaded-images {
   transition: background-color .3s, opacity 1s;
 }
 
-.bottom > ul > li > button:hover {
+.bottom > ul > li > a:hover {
   opacity: 1;
   background-color: #a5d1dc;
 }

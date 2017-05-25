@@ -9,7 +9,7 @@ $(document).ready(function() {
     boopNormalArray = [],
     boopHitArray = [],
     numberArray = [],
-    boop, boopHit, w, h;
+    boop, boopHit, w, h, fsize;
 
   var elem = $('#container');
 
@@ -391,14 +391,16 @@ $(document).ready(function() {
     w = Math.floor(elem.width());
     h = Math.floor(elem.height());
 
-    if (window.innerWidth * .5625 < window.innerHeight) {
-      elem.width(w = window.innerWidth);
-      elem.height(w * .5625);
-    } else {
-      elem.height(h = window.innerHeight);
-      elem.width(h * 1.777778);
-      console.log('fit height and scale sides');
-    }
+    // if (window.innerWidth * .5625 < window.innerHeight) {
+    //   elem.width(w = window.innerWidth);
+    //   elem.height(w * .5625);
+    //       fsize = ((w / window.outerWidth) * 1).toString().slice(0,4);
+    //       console.log(w, window.innerWidth, window.outerWidth, fsize);
+    //       elem.css("font-size", fsize + 'em');
+    // } else {
+    //   elem.height(h = window.innerHeight);
+    //   elem.width(h * 1.777778);
+    // }
     elem.show();
   }).resize();
 });
