@@ -11,7 +11,7 @@ $(document).ready(function() {
     numberArray = [],
     boop, boopHit, w, h, fsize;
 
-  var elem = $('#container');
+  var elem = $('.container');
 
   // set of variables will refresh UI when changed
   var vars = {
@@ -387,20 +387,8 @@ $(document).ready(function() {
   });
 
   $(window).resize(function() {
-    elem.hide();
     w = Math.floor(elem.width());
-    h = Math.floor(elem.height());
-
-    // if (window.innerWidth * .5625 < window.innerHeight) {
-    //   elem.width(w = window.innerWidth);
-    //   elem.height(w * .5625);
-    //       fsize = ((w / window.outerWidth) * 1).toString().slice(0,4);
-    //       console.log(w, window.innerWidth, window.outerWidth, fsize);
-    //       elem.css("font-size", fsize + 'em');
-    // } else {
-    //   elem.height(h = window.innerHeight);
-    //   elem.width(h * 1.777778);
-    // }
-    elem.show();
+    console.log(w / window.innerWidth);
+    elem.css("font-size", w / window.innerWidth + 'vw');
   }).resize();
 });
