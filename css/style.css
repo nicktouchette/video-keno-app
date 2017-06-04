@@ -58,10 +58,12 @@ div#preloaded-images {
 
 .aspect {
   width: 100%;
+  opacity: 0.5;
 }
 
 .inner {
   position: absolute;
+  background-color: ;
   top: 0;
   left: 0;
   right: 0;
