@@ -121,56 +121,56 @@ $(document).ready(function() {
     if (this.number % 10 === 0) {
       $(".board").append(`<br>`)
     }
+  };
 
-    // highlight a square and detect if square is selected
-    this.highlight = function(count) {
-      this.element.addClass("highlight");
-      if (this.isSelected) {
-        this.hit();
-        this.sound = boopHitArray[count];
-      } else {
-        this.sound = boopNormalArray[count];
-      }
-      this.sound.play();
-    };
+  // highlight a square and detect if square is selected
+  Square.prototype.highlight = function(count) {
+    this.element.addClass("highlight");
+    if (this.isSelected) {
+      this.hit();
+      this.sound = boopHitArray[count];
+    } else {
+      this.sound = boopNormalArray[count];
+    }
+    this.sound.play();
+  };
 
-    // mark square as hit if selected is true
-    // increment hits variable and enable hit flag
-    this.hit = function() {
-      this.element.text("HIT");
-      this.isHit = true;
-      vars.hitCount++;
-    };
+  // mark square as hit if selected is true
+  // increment hits variable and enable hit flag
+  Square.prototype.hit = function() {
+    this.element.text("HIT");
+    this.isHit = true;
+    vars.hitCount++;
+  };
 
-    this.blink = function() {
-      if (this.isHit) {
-        this.element.addClass("blink");
-      }
-    };
+  Square.prototype.blink = function() {
+    if (this.isHit) {
+      this.element.addClass("blink");
+    }
+  };
 
-    // Select isSelected and iterate vars.selectedCount, style accordingly
-    this.select = function() {
-      if (idleState === true && this.isSelected) {
-        this.isSelected = false;
-        vars.selectedCount--;
-        this.element.removeClass("selected");
-      } else if (vars.selectedCount < 10) {
-        this.isSelected = true;
-        vars.selectedCount++;
-        this.element.addClass("selected");
-      }
-    };
+  // Select isSelected and iterate vars.selectedCount, style accordingly
+  Square.prototype.select = function() {
+    if (idleState === true && this.isSelected) {
+      this.isSelected = false;
+      vars.selectedCount--;
+      this.element.removeClass("selected");
+    } else if (vars.selectedCount < 10) {
+      this.isSelected = true;
+      vars.selectedCount++;
+      this.element.addClass("selected");
+    }
+  };
 
-    // resets the isHit flag to false, deducts vars.hitCount, and resets color/text
-    this.reset = function() {
-      if (this.isHit === true) {
-        vars.hitCount--;
-        this.isHit = false;
-        this.element.removeClass("blink");
-      }
-      this.element.removeClass("highlight");
-      this.element.text(this.number);
-    };
+  // resets the isHit flag to false, deducts vars.hitCount, and resets color/text
+  Square.prototype.reset = function() {
+    if (this.isHit === true) {
+      vars.hitCount--;
+      this.isHit = false;
+      this.element.removeClass("blink");
+    }
+    this.element.removeClass("highlight");
+    this.element.text(this.number);
   };
 
   // Create button objects and display board
